@@ -63,7 +63,7 @@ public class Convert {
         // "dd MMM yyyy HH:mm:ss"
         Date now = new Date();
         SimpleDateFormat dtf = new SimpleDateFormat("dd MM yyyy HH:mm:ss");
-        dtf.setTimeZone(TimeZone.getTimeZone("GMT"));
+        dtf.setTimeZone(TimeZone.getTimeZone("GMT+1"));
         return dtf.format(now);
     }
 }
