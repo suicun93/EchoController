@@ -66,10 +66,6 @@
     .content .right-menu .right-menu-item label {
       margin: 1rem 0;
       font-size: 1.5rem; }
-  .content .right-menu .right-menu-item {
-    display: none; }
-  .content .right-menu .is-visible {
-    display: block; }
 
 .datetimepicker {
   border: 1px solid gray;

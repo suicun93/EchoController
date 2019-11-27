@@ -7,6 +7,7 @@ function showModal(modalToShow) {
             //assign showing modal
             currentShowingModal = document.getElementById("common");
             currentShowingModal.style.display = "block";
+            loadTime();
             break;
         case "solar_modal":
             currentShowingModal.style.display = "none";

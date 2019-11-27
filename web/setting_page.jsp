@@ -65,17 +65,17 @@
                     </div>
                 </div>
                 <div class="right-menu column is-9-fullhd is-7-desktop is-7-tablet">
-                    <div class="right-menu-item is-visible" id="common">
+                    <div class="right-menu-item" id="common">
                         <h3>時刻設定</h3>
                         <div class="right-menu-item-input">
-                            <input size="16" type="text" value="2012-06-15 14:45" readonly
-                                class="form_datetime input is-rounded is-primary">
+                            <input size="16" type="text" readonly
+                                class="form_datetime input is-rounded is-primary" id="time">
                         </div>
-                        <button class="button is-primary">
+                        <button class="button is-primary" onclick="setTime()">
                             設定
                         </button>
                     </div>
-                    <div class="right-menu-item" id="solar_modal">
+                    <div class="right-menu-item" id="solar_modal" style="display: none">
                         <h3>太陽発電 設定</h3>
                         <div class="right-menu-item-input">
                             <label for="solar-name">名称:</label>
@@ -85,7 +85,7 @@
                             設定
                         </button>
                     </div>
-                    <div class="right-menu-item" id="ev_modal">
+                    <div class="right-menu-item" id="ev_modal" style="display: none">
                         <h3>EV 設定</h3>
                         <div class="right-menu-item-input">
                             <label for="ev-name">名称:</label>
@@ -95,7 +95,7 @@
                             設定
                         </button>
                     </div>
-                    <div class="right-menu-item" id="battery_modal">
+                    <div class="right-menu-item" id="battery_modal" style="display: none">
                         <h3>蓄電池 設定</h3>
                         <div class="right-menu-item-input">
                             <label for="batt-name">名称:</label>
@@ -105,7 +105,7 @@
                             設定
                         </button>
                     </div>
-                    <div class="right-menu-item" id="light_modal">
+                    <div class="right-menu-item" id="light_modal" style="display: none">
                         <h3>照明 設定</h3>
                         <div class="right-menu-item-input">
                             <label for="light-name">名称:</label>
@@ -125,6 +125,7 @@
 <script type="text/javascript">
     $(".form_datetime").datetimepicker({ format: 'yyyy-mm-dd hh:ii' });
 </script>
+<script src="js/time.js"></script>
 <script src="js/open-modal.js"></script>
 
 </html>
