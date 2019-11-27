@@ -1,0 +1,23 @@
+@mixin bg-element($z-index){
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    z-index: $z-index;
+}
+body{
+    background-image: url("../img/HEMS-top-img.jpg");
+    height: 100vh;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: auto;
+}
+#bg-img{
+    object-fit: cover;
+    @include bg-element(-1);
+}
+.bg-color{
+    background-color: #40404080;
+    @include bg-element(0);
+}

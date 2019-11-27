@@ -1,0 +1,123 @@
+.head-title {
+  font-size: 2vw;
+  font-weight: 600;
+  color: #5a5151;
+  text-align: center;
+  background: #ffffff8a;
+  margin: 0 3rem; }
+
+.header {
+  margin-bottom: 5vh; }
+  .header .container div {
+    height: 100%;
+    width: 3%;
+    background: #f1ff7c85;
+    margin-left: 3rem;
+    position: absolute; }
+
+.content .left-menu {
+  background-color: #ffffffea;
+  border-radius: 5px;
+  max-height: 82vh;
+  overflow: auto;
+  padding: 0; }
+  .content .left-menu .menu-item {
+    position: relative;
+    min-height: 9rem;
+    text-align: center;
+    font-weight: 500; }
+    .content .left-menu .menu-item .item-img {
+      padding-top: 0.5rem; }
+      .content .left-menu .menu-item .item-img img {
+        width: 5rem; }
+    .content .left-menu .menu-item span {
+      font-size: 1.5rem; }
+  .content .left-menu .menu-item:hover {
+    cursor: pointer;
+    background-color: #5a515190;
+    color: white; }
+  .content .left-menu .menu-item:hover::before {
+    height: 100%; }
+  .content .left-menu .menu-item:before {
+    position: absolute;
+    content: "";
+    display: block;
+    width: 1rem;
+    height: 0;
+    background: #75d0fbba;
+    transition: height .3s; }
+.content .right-menu {
+  background-color: #ffffffea;
+  border-radius: 5px;
+  margin-left: 2rem;
+  position: relative; }
+  .content .right-menu .right-menu-item {
+    height: 100%;
+    text-align: center; }
+    .content .right-menu .right-menu-item h3 {
+      text-align: center;
+      margin-top: 2vh; }
+    .content .right-menu .right-menu-item .right-menu-item-input {
+      margin: 1rem 0; }
+    .content .right-menu .right-menu-item input {
+      width: 27vw; }
+    .content .right-menu .right-menu-item .form_datetime {
+      text-align: center; }
+    .content .right-menu .right-menu-item label {
+      margin: 1rem 0;
+      font-size: 1.5rem; }
+  .content .right-menu .right-menu-item {
+    display: none; }
+  .content .right-menu .is-visible {
+    display: block; }
+
+.datetimepicker {
+  border: 1px solid gray;
+  background: white; }
+  .datetimepicker td {
+    text-align: center !important; }
+
+@media (min-width: 320px) {
+  .head-title {
+    font-size: 3.6vw;
+    margin: 0;
+    padding: 1rem; }
+
+  .header .container div {
+    margin: 0; }
+
+  .content .left-menu .menu-item:before {
+    width: 2rem; }
+  .content .right-menu {
+    margin: 0;
+    margin-top: 4rem; } }
+@media (min-width: 460px) {
+  .head-title {
+    font-size: 3.5vw; }
+
+  .content .left-menu .menu-item:before {
+    width: 2rem; }
+  .content .right-menu {
+    margin: 0;
+    margin-top: 4rem; } }
+@media (min-width: 768px) {
+  .head-title {
+    font-size: 3.5vw; }
+
+  .content .left-menu .menu-item:before {
+    width: 2rem; }
+  .content .right-menu {
+    margin: 0 1rem; } }
+@media (min-width: 980px) {
+  .head-title {
+    font-size: 3vw; }
+
+  .content .left-menu .menu-item:before {
+    width: 1rem; }
+  .content .right-menu {
+    margin: 0 1rem; } }
+@media (min-width: 1240px) {
+  .head-title {
+    font-size: 2vw; } }
+
+/*# sourceMappingURL=setting-page.css.map */

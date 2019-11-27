@@ -1,0 +1,24 @@
+body {
+  background-image: url("../img/HEMS-top-img.jpg");
+  height: 100vh;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow: auto; }
+
+#bg-img {
+  object-fit: cover;
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  z-index: -1; }
+
+.bg-color {
+  background-color: #40404080;
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  z-index: 0; }
+
+/*# sourceMappingURL=common.css.map */

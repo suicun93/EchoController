@@ -1,0 +1,186 @@
+$tag-color:#f1ff7c85;
+$menu-bg-color:#ffffffea;
+$border-radius:5px;
+.head-title{
+    font-size: 2vw;
+    font-weight: 600;
+    color: #5a5151;
+    text-align: center;
+    background: #ffffff8a;
+    margin: 0 3rem;
+}
+
+.header{
+    margin-bottom: 5vh;
+    .container{
+        div{
+            height: 100%;
+            width: 3%;
+            background: $tag-color;
+            margin-left: 3rem;
+            position: absolute;
+        }
+    }
+}
+.content{
+    .left-menu{
+        background-color: $menu-bg-color;
+        border-radius: $border-radius;
+        max-height: 82vh;
+        overflow: auto;
+        padding: 0;
+        .menu-item{
+            position: relative;
+            min-height: 9rem;
+            text-align: center;
+            font-weight: 500;
+            .item-img{
+                padding-top: 0.5rem;
+                img{
+                    width: 5rem;
+                }
+            }
+            span{
+                font-size: 1.5rem;
+            }
+        }
+        .menu-item:hover{
+            cursor: pointer;
+            background-color: #5a515190;
+            color: white;
+        }
+        .menu-item:hover::before{
+            height: 100%;
+        }
+        .menu-item:before{
+            position: absolute;
+            content: "";
+            display: block;
+            width: 1rem;
+            height: 0;
+            background: #75d0fbba;
+            transition: height .3s;
+        }
+    }
+    .right-menu{
+        background-color: $menu-bg-color;
+        border-radius: $border-radius;
+        margin-left: 2rem;
+        position: relative;
+        .right-menu-item{
+            // position: absolute;
+            height: 100%;
+            // width: calc(100% - (.75rem*2));
+            text-align: center;
+            h3{
+                text-align: center;
+                margin-top: 2vh;
+            }
+            .right-menu-item-input{
+                margin: 1rem 0;
+            }
+            input{
+                width: 27vw;
+            }
+            .form_datetime{
+                text-align: center;
+            }
+            label{
+                margin: 1rem 0;
+                font-size:1.5rem;
+            }
+        }
+        .right-menu-item{
+            display: none;
+        }
+        .is-visible{
+            display: block;
+        }
+    }
+    
+}
+.datetimepicker{
+    border: 1px solid gray;
+    background: white;
+    td{
+        text-align: center !important;
+    }
+}
+@media (min-width: 320px){
+    .head-title{
+        font-size: 3.6vw;
+        margin: 0;
+        padding: 1rem;
+    }
+    .header{
+        .container{
+            div{
+                margin: 0;
+            }
+        }
+    }
+    .content{
+        .left-menu{
+            .menu-item:before{
+                width: 2rem;
+            }
+        }
+        .right-menu{
+            margin:0;
+            margin-top:4rem;
+        }
+    }
+
+}
+@media (min-width: 460px){
+    .head-title{
+        font-size: 3.5vw;
+    }
+    .content{
+        .left-menu{
+            .menu-item:before{
+                width: 2rem;
+            }
+        }
+        .right-menu{
+            margin:0;
+            margin-top:4rem;
+        }
+    }
+    
+}
+@media (min-width: 768px){
+    .head-title{
+        font-size: 3.5vw;
+    }
+    .content{
+        .left-menu{
+            .menu-item:before{
+                width: 2rem;
+            }
+        }
+        .right-menu{
+            margin:0 1rem;
+        }
+    }
+}
+@media (min-width: 980px){
+    .head-title{
+        font-size: 3vw;
+    }
+    .content{
+        .left-menu{
+            .menu-item:before{
+                width: 1rem;
+            }
+        }
+        .right-menu{
+            margin:0 1rem;
+        }
+    }
+}
+@media (min-width: 1240px) {
+    .head-title{
+        font-size: 2vw;
+    }
+}

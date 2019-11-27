@@ -1,0 +1,21 @@
+.welcome-banner {
+  text-align: center; }
+  .welcome-banner h1 {
+    padding-top: 40vh;
+    font-weight: 600;
+    color: white;
+    font-size: 4vw; }
+  .welcome-banner button {
+    min-width: 12rem;
+    margin-right: 2rem; }
+  .welcome-banner .main-menu-btn div {
+    margin: 2rem;
+    text-align: start;
+    margin-left: 27vw; }
+    .welcome-banner .main-menu-btn div span {
+      font-size: 2.3vh;
+      color: white;
+      line-height: 54px;
+      font-weight: 600; }
+
+/*# sourceMappingURL=top-page.css.map */
