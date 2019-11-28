@@ -2,11 +2,13 @@
   background: #ffffffea;
   border-radius: 5px; }
 
+.content {
+  padding-bottom: 2rem; }
+
 .home {
   background: #66a7bb;
   border-radius: 5px;
-  text-align: center;
-  margin: 4rem 0; }
+  text-align: center; }
   .home img {
     width: 14rem; }
   .home .home-img-wrapper {
@@ -17,7 +19,8 @@
 .device {
   background: #929292;
   display: flex;
-  border-radius: 5px; }
+  border-radius: 5px;
+  padding: 1rem; }
   .device .device-img-wrapper {
     width: 40%; }
   .device .device-info-wrapper {
@@ -27,6 +30,180 @@
     .device .device-info-wrapper h2 {
       text-align: center;
       color: #ffdd57; }
+
+.ev-charging {
+  display: inline-flex;
+  float: right;
+  margin: 2rem;
+  transform: rotate(225deg);
+  position: relative;
+  top: 3rem; }
+  .ev-charging div {
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 0.75rem solid;
+    border-color: #ffdd57 #ffdd57 transparent transparent;
+    position: relative;
+    animation-name: slide-in;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    transform: rotate(45deg);
+    opacity: 0; }
+@keyframes slide-in {
+  0% {
+    left: 0;
+    opacity: 1; }
+  25% {
+    left: 2.5rem;
+    opacity: 0.75; }
+  50% {
+    left: 2.5rem;
+    opacity: 0.5; }
+  75% {
+    left: 2.5rem;
+    opacity: .25; }
+  100% {
+    left: 2.5rem;
+    opacity: 0; } }
+  .ev-charging .delay1 {
+    animation-delay: 0.5s; }
+  .ev-charging .delay2 {
+    animation-delay: 1s; }
+  .ev-charging .delay3 {
+    animation-delay: 1.5s; }
+  .ev-charging .delay4 {
+    animation-delay: 2s; }
+
+.ev-discharging {
+  display: inline-flex;
+  float: right;
+  margin: 2rem;
+  transform: rotate(45deg); }
+  .ev-discharging div {
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 0.75rem solid;
+    border-color: #ffdd57 #ffdd57 transparent transparent;
+    position: relative;
+    animation-name: slide-in;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    transform: rotate(45deg);
+    opacity: 0; }
+@keyframes slide-in {
+  0% {
+    left: 0;
+    opacity: 1; }
+  25% {
+    left: 2.5rem;
+    opacity: 0.75; }
+  50% {
+    left: 2.5rem;
+    opacity: 0.5; }
+  75% {
+    left: 2.5rem;
+    opacity: .25; }
+  100% {
+    left: 2.5rem;
+    opacity: 0; } }
+  .ev-discharging .delay1 {
+    animation-delay: 0.5s; }
+  .ev-discharging .delay2 {
+    animation-delay: 1s; }
+  .ev-discharging .delay3 {
+    animation-delay: 1.5s; }
+  .ev-discharging .delay4 {
+    animation-delay: 2s; }
+
+.batt-discharging {
+  float: left !important;
+  display: inline-flex;
+  float: right;
+  margin: 2rem;
+  transform: rotate(135deg); }
+  .batt-discharging div {
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 0.75rem solid;
+    border-color: #ffdd57 #ffdd57 transparent transparent;
+    position: relative;
+    animation-name: slide-in;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    transform: rotate(45deg);
+    opacity: 0; }
+@keyframes slide-in {
+  0% {
+    left: 0;
+    opacity: 1; }
+  25% {
+    left: 2.5rem;
+    opacity: 0.75; }
+  50% {
+    left: 2.5rem;
+    opacity: 0.5; }
+  75% {
+    left: 2.5rem;
+    opacity: .25; }
+  100% {
+    left: 2.5rem;
+    opacity: 0; } }
+  .batt-discharging .delay1 {
+    animation-delay: 0.5s; }
+  .batt-discharging .delay2 {
+    animation-delay: 1s; }
+  .batt-discharging .delay3 {
+    animation-delay: 1.5s; }
+  .batt-discharging .delay4 {
+    animation-delay: 2s; }
+
+.batt-charging {
+  float: left !important;
+  display: inline-flex;
+  float: right;
+  margin: 2rem;
+  transform: rotate(-45deg);
+  position: relative;
+  top: 3rem; }
+  .batt-charging div {
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 0.75rem solid;
+    border-color: #ffdd57 #ffdd57 transparent transparent;
+    position: relative;
+    animation-name: slide-in;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    transform: rotate(45deg);
+    opacity: 0; }
+@keyframes slide-in {
+  0% {
+    left: 0;
+    opacity: 1; }
+  25% {
+    left: 2.5rem;
+    opacity: 0.75; }
+  50% {
+    left: 2.5rem;
+    opacity: 0.5; }
+  75% {
+    left: 2.5rem;
+    opacity: .25; }
+  100% {
+    left: 2.5rem;
+    opacity: 0; } }
+  .batt-charging .delay1 {
+    animation-delay: 0.5s; }
+  .batt-charging .delay2 {
+    animation-delay: 1s; }
+  .batt-charging .delay3 {
+    animation-delay: 1.5s; }
+  .batt-charging .delay4 {
+    animation-delay: 2s; }
 
 .bottom-devices {
   margin-bottom: 2rem !important; }

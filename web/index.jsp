@@ -24,11 +24,11 @@
                         <h1>HEMSシステムデモンストレーション</h1>
                         <div class="main-menu-btn">
                             <div>
-                                <button class="button is-primary is-rounded is-large" onclick="window.location.href = 'setting_page.jsp'">設定</button>
+                                <button class="button is-primary is-rounded is-large" onclick="window.location.href = 'setting-page.jsp'">設定</button>
                                 <span>機器に設定を行います。</span>
                             </div>
                             <div >
-                                <button class="button is-link is-rounded is-large">電力表示</button>
+                                <button class="button is-link is-rounded is-large" onclick="window.location.href = 'display-page.jsp'">電力表示</button>
                                 <span>現在の電力状態を表示できます。</span>
                             </div>
                         </div>
