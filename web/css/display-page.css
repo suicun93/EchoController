@@ -1,0 +1,37 @@
+.main-screen {
+  background: #ffffffea;
+  border-radius: 5px; }
+
+.home {
+  background: #66a7bb;
+  border-radius: 5px;
+  text-align: center;
+  margin: 4rem 0; }
+  .home img {
+    width: 14rem; }
+  .home .home-img-wrapper {
+    width: 100%; }
+  .home .home-info-wrapper h2 {
+    color: #ffdd57; }
+
+.device {
+  background: #929292;
+  display: flex;
+  border-radius: 5px; }
+  .device .device-img-wrapper {
+    width: 40%; }
+  .device .device-info-wrapper {
+    width: 60%; }
+    .device .device-info-wrapper h5 {
+      text-align: center; }
+    .device .device-info-wrapper h2 {
+      text-align: center;
+      color: #ffdd57; }
+
+.bottom-devices {
+  margin-bottom: 2rem !important; }
+
+.devices {
+  margin: 2rem 0; }
+
+/*# sourceMappingURL=display-page.css.map */

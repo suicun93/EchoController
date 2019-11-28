@@ -21,9 +21,8 @@
 </head>
 
 <body>
-    <img src="img/HEMS-top-img.jpg" alt="HEMS house" id="bg-img">
-    <div class="bg-color"></div>
-    <section class="header">
+    <div class="bg-color">
+            <section class="header">
         <div class="container">
             <div></div>
             <h1 class="head-title">HEMSシステムデモンストレーション　ー　設定</h1>
@@ -119,6 +118,8 @@
             </div>
         </div>
     </section>
+    </div>
+
 </body>
 <script src="js/jquery.js"></script>
 <script src="js/bootstrap-datetimepicker.min.js"></script>

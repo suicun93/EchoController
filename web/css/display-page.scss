@@ -1,0 +1,49 @@
+$menu-bg-color:#ffffffea;
+$border-radius: 5px;
+$device-bg-color:#929292;
+$device-info-color:#ffdd57;
+.main-screen{
+    background: $menu-bg-color;
+    border-radius: $border-radius;
+}
+.home{
+    background: #66a7bb;
+    border-radius: $border-radius;
+    text-align: center;
+    margin: 4rem 0;
+    img{
+        width: 14rem;
+    }
+    .home-img-wrapper{
+        width: 100%;
+    }
+    .home-info-wrapper{
+        h2{
+            color:$device-info-color;
+        }
+    }
+}
+.device{
+    background: $device-bg-color;
+    display: flex;
+    border-radius: $border-radius;
+    .device-img-wrapper{
+        width: 40%;
+    }
+    .device-info-wrapper{
+        width: 60%;
+        h5{
+            text-align: center;
+        }
+        h2{
+            text-align: center;
+            color: $device-info-color;
+        }
+    }
+}
+.bottom-devices{
+    margin-bottom: 2rem !important;
+}
+.devices{
+    margin: 2rem 0;
+}

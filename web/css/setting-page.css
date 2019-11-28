@@ -1,20 +1,3 @@
-.head-title {
-  font-size: 2vw;
-  font-weight: 600;
-  color: #5a5151;
-  text-align: center;
-  background: #ffffff8a;
-  margin: 0 3rem; }
-
-.header {
-  margin-bottom: 5vh; }
-  .header .container div {
-    height: 100%;
-    width: 3%;
-    background: #f1ff7c85;
-    margin-left: 3rem;
-    position: absolute; }
-
 .content .left-menu {
   background-color: #ffffffea;
   border-radius: 5px;

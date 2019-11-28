@@ -1,27 +1,6 @@
-$tag-color:#f1ff7c85;
 $menu-bg-color:#ffffffea;
 $border-radius:5px;
-.head-title{
-    font-size: 2vw;
-    font-weight: 600;
-    color: #5a5151;
-    text-align: center;
-    background: #ffffff8a;
-    margin: 0 3rem;
-}
 
-.header{
-    margin-bottom: 5vh;
-    .container{
-        div{
-            height: 100%;
-            width: 3%;
-            background: $tag-color;
-            margin-left: 3rem;
-            position: absolute;
-        }
-    }
-}
 .content{
     .left-menu{
         background-color: $menu-bg-color;
@@ -89,12 +68,6 @@ $border-radius:5px;
                 margin: 1rem 0;
                 font-size:1.5rem;
             }
-        }
-        .right-menu-item{
-            display: none;
-        }
-        .is-visible{
-            display: block;
         }
     }
     

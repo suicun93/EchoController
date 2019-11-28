@@ -7,35 +7,36 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="css/bulma.min.css">
-    <link rel="stylesheet" href="css/common.css">
-    <link rel="stylesheet" href="css/top-page.css">
-    <title>Welcome to HEMS</title>
-</head>
-<body>
-    <img src="img/HEMS-top-img.jpg" alt="HEMS house" id="bg-img">
-    <div class="bg-color"></div>
-    <section>
-        <div class="container">
-            <div class="welcome-banner">
-                <h1>HEMSシステムデモンストレーション</h1>
-                <div class="main-menu-btn">
-                    <div>
-                        <button class="button is-primary is-rounded is-large" onclick="window.location.href='setting_page.jsp'">設定</button>
-                        <span>機器に設定を行います。</span>
-                    </div>
-                    <div >
-                        <button class="button is-link is-rounded is-large">電力表示</button>
-                        <span>現在の電力状態を表示できます。</span>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="css/bulma.min.css">
+        <link rel="stylesheet" href="css/common.css">
+        <link rel="stylesheet" href="css/top-page.css">
+        <title>Welcome to HEMS</title>
+    </head>
+    <body>
+        <div class="bg-color">
+            <section>
+                <div class="container">
+                    <div class="welcome-banner">
+                        <h1>HEMSシステムデモンストレーション</h1>
+                        <div class="main-menu-btn">
+                            <div>
+                                <button class="button is-primary is-rounded is-large" onclick="window.location.href = 'setting_page.jsp'">設定</button>
+                                <span>機器に設定を行います。</span>
+                            </div>
+                            <div >
+                                <button class="button is-link is-rounded is-large">電力表示</button>
+                                <span>現在の電力状態を表示できます。</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </section>
         </div>
-    </section>
-</body>
+
+    </body>
 
 </html>
