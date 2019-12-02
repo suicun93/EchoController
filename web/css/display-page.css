@@ -1,36 +1,40 @@
 .main-screen {
-  background: #ffffffea;
   border-radius: 5px; }
 
-.content {
-  padding-bottom: 2rem; }
-
 .home {
-  background: #66a7bb;
+  background: #efdd9aed;
   border-radius: 5px;
-  text-align: center; }
+  text-align: center;
+  margin: 2rem 0; }
   .home img {
     width: 14rem; }
   .home .home-img-wrapper {
     width: 100%; }
   .home .home-info-wrapper h2 {
-    color: #ffdd57; }
+    color: #f16953; }
 
 .device {
-  background: #929292;
+  background: #f9f9f9e5;
   display: flex;
-  border-radius: 5px;
-  padding: 1rem; }
+  border-radius: 5px; }
   .device .device-img-wrapper {
-    width: 40%; }
+    width: 40%;
+    padding: 1rem; }
   .device .device-info-wrapper {
-    width: 60%; }
+    width: 60%;
+    padding: 1rem; }
     .device .device-info-wrapper h5 {
       text-align: center; }
     .device .device-info-wrapper h2 {
       text-align: center;
-      color: #ffdd57; }
+      color: #f16953; }
 
+.bottom-devices {
+  margin-bottom: 2rem !important; }
+
+/*.devices{
+    margin: 2rem 0;
+}*/
 .ev-charging {
   display: inline-flex;
   float: right;
@@ -204,11 +208,5 @@
     animation-delay: 1.5s; }
   .batt-charging .delay4 {
     animation-delay: 2s; }
-
-.bottom-devices {
-  margin-bottom: 2rem !important; }
-
-.devices {
-  margin: 2rem 0; }
 
 /*# sourceMappingURL=display-page.css.map */

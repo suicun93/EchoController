@@ -1,16 +1,15 @@
-$menu-bg-color:#ffffffea;
+$menu-bg-color:#ffffff30;
 $border-radius: 5px;
-$device-bg-color:#929292;
-$device-info-color:#ffdd57;
+$device-bg-color:#f9f9f9e5;
+$device-info-color:#f16953;
 .main-screen{
-    background: $menu-bg-color;
     border-radius: $border-radius;
 }
 .home{
-    background: #66a7bb;
+    background: #efdd9aed;
     border-radius: $border-radius;
     text-align: center;
-    margin: 4rem 0;
+    margin: 2rem 0;
     img{
         width: 14rem;
     }
@@ -29,9 +28,11 @@ $device-info-color:#ffdd57;
     border-radius: $border-radius;
     .device-img-wrapper{
         width: 40%;
+        padding: 1rem;
     }
     .device-info-wrapper{
         width: 60%;
+        padding: 1rem;
         h5{
             text-align: center;
         }
@@ -44,6 +45,62 @@ $device-info-color:#ffdd57;
 .bottom-devices{
     margin-bottom: 2rem !important;
 }
-.devices{
+/*.devices{
     margin: 2rem 0;
+}*/
+@mixin electric-arrow($deg){
+    display: inline-flex;
+    float: right;
+    margin: 2rem;
+    transform: rotate($deg);
+    div{
+        width: 2.5rem;
+        height: 2.5rem;
+        border: 0.75rem solid;
+        border-color:  #ffdd57 #ffdd57 transparent transparent;
+        position: relative;
+        animation-name: slide-in;
+        animation-duration: 2s;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+        transform: rotate(45deg);
+        opacity: 0;
+    }
+    @keyframes slide-in {
+        0%{left:0; opacity: 1;}
+        25%{left:2.5rem; opacity: 0.75;}
+        50%{left: 2.5rem; opacity: 0.5;}
+        75%{left:2.5rem; opacity: .25;}
+        100%{left: 2.5rem; opacity: 0;}
+    }
+    .delay1{
+        animation-delay: 0.5s;
+    }
+    .delay2{
+        animation-delay: 1s;
+    }
+    .delay3{
+        animation-delay: 1.5s;
+    }
+    .delay4{
+        animation-delay: 2s;
+    }
+}
+.ev-charging{
+    @include electric-arrow(180deg + 45deg);
+    position: relative;
+    top: 3rem;
+}
+.ev-discharging{
+    @include electric-arrow(45deg);
+}
+.batt-discharging{
+    float: left !important;
+    @include electric-arrow(135deg);
+}
+.batt-charging{
+    float: left !important;
+    @include electric-arrow(-45deg);
+    position: relative;
+    top: 3rem;
 }

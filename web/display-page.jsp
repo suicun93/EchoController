@@ -12,7 +12,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
+    <script src="https://kit.fontawesome.com/594a36984d.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/bulma.min.css">
     <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="css/display-page.css">
@@ -29,6 +29,9 @@
         </section>
         <section class="content">
             <div class="container">
+                <a href="/EchoController/" class="button is-info">
+                        <i class="fas fa-home"></i>
+                        戻り</a>
                 <div class="main-screen columns">
                     <div class="column is-10 is-offset-1">
                         <div>
@@ -43,7 +46,7 @@
                                             <h2>100Wh</h2>
                                         </div>
                                     </div>
-                                    <div class="">
+                                    <div class="ev-charging">
                                         <div class="delay1"></div>
                                         <div class="delay2"></div>
                                         <div class="delay3"></div>
@@ -60,7 +63,7 @@
                                             <h2>100Wh</h2>
                                         </div>
                                     </div>
-                                    <div class="">
+                                    <div class="batt-discharging">
                                         <div class="delay1"></div>
                                         <div class="delay2"></div>
                                         <div class="delay3"></div>
