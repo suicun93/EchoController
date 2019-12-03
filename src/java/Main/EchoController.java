@@ -41,6 +41,12 @@ public class EchoController {
         }
     }
 
+    public static void stopController() throws IOException {
+        if (Echo.isStarted()) {
+            Echo.clear();
+        }
+    }
+
     // Device Object List to array
     private static DeviceObject[] listDevice() {
         DeviceObject[] deviceObjects = new DeviceObject[listDevice.size()];
