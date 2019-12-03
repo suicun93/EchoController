@@ -29,7 +29,7 @@
         </section>
         <section class="content">
             <div class="container">
-                <a href="/EchoController/" class="button is-info">
+                <a href="/Collector/" class="button is-info">
                         <i class="fas fa-home"></i>
                         戻り</a>
                 <div class="main-screen columns">
