@@ -4,9 +4,17 @@
         <servlet-name>Time</servlet-name>
         <servlet-class>Servlet.Time</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GetItemAvailable</servlet-name>
+        <servlet-class>Servlet.GetItemAvailable</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Time</servlet-name>
         <url-pattern>/Time</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetItemAvailable</servlet-name>
+        <url-pattern>/GetItemAvailable</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

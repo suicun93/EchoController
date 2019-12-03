@@ -6,10 +6,6 @@
 package Main;
 
 import Common.Convert;
-import Model.MyBattery;
-import Model.MyElectricVehicle;
-import Model.MyLight;
-import Model.MySolar;
 import com.sonycsl.echo.Echo;
 import com.sonycsl.echo.EchoProperty;
 import com.sonycsl.echo.eoj.EchoObject;
@@ -19,8 +15,11 @@ import com.sonycsl.echo.eoj.device.housingfacilities.ElectricVehicle;
 import com.sonycsl.echo.eoj.device.housingfacilities.GeneralLighting;
 import com.sonycsl.echo.eoj.device.housingfacilities.HouseholdSolarPowerGeneration;
 import com.sonycsl.echo.eoj.device.managementoperation.Controller;
+import com.sonycsl.echo.eoj.profile.NodeProfile;
 import com.sonycsl.echo.node.EchoNode;
+import com.sonycsl.echo.processing.defaults.DefaultController;
 import com.sonycsl.echo.processing.defaults.DefaultNodeProfile;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -31,25 +30,24 @@ public class EchoController {
 
     // Init nodeProfile, controller, ev, battery, ...
     private static final DefaultNodeProfile NODE_PROFILE = new DefaultNodeProfile();
-    public static final MyElectricVehicle EV = new MyElectricVehicle();
-    public static final MyBattery BATTERY = new MyBattery();
-    public static final MySolar SOLAR = new MySolar();
-    public static final MyLight LIGHT = new MyLight();
+    private static final Controller CONTROLLER = new DefaultController();
     public static ArrayList<DeviceObject> listDevice = new ArrayList<>();
 
+    public static void startController() throws IOException {
+        if (!Echo.isStarted()) {
+            addEvent();
+            listDevice.add(CONTROLLER);
+            Echo.start(NODE_PROFILE, listDevice());
+        }
+    }
+
+    // Device Object List to array
+    private static DeviceObject[] listDevice() {
+        DeviceObject[] deviceObjects = new DeviceObject[listDevice.size()];
+        return listDevice.toArray(deviceObjects);
+    }
+
     public static boolean contains(String device) {
-        if (device.equalsIgnoreCase("battery")) {
-            return listDevice.contains(BATTERY);
-        }
-        if (device.equalsIgnoreCase("ev")) {
-            return listDevice.contains(EV);
-        }
-        if (device.equalsIgnoreCase("solar")) {
-            return listDevice.contains(SOLAR);
-        }
-        if (device.equalsIgnoreCase("light")) {
-            return listDevice.contains(LIGHT);
-        }
         return false;
     }
 
@@ -72,6 +70,9 @@ public class EchoController {
             @Override
             public void onNewDeviceObject(DeviceObject device) {
                 super.onNewDeviceObject(device);
+                if (!listDevice.contains(device)) {
+                    listDevice.add(device);
+                }
                 System.out.println("\t   New " + deviceDetect(device) + " found.");
                 System.out.println("\t   Device = " + device);
                 System.out.println("\t   ----\n\n");
@@ -111,18 +112,6 @@ public class EchoController {
         if (device instanceof Controller) {
             return "Controller";
         }
-        if (device instanceof MyBattery) {
-            return "My Battery";
-        }
-        if (device instanceof MyElectricVehicle) {
-            return "My Electric Vehicle";
-        }
-        if (device instanceof MySolar) {
-            return "My Solar";
-        }
-        if (device instanceof MyLight) {
-            return "My Light";
-        }
         if (device instanceof ElectricVehicle) {
             return "Electric Vehicle";
         }
@@ -136,5 +125,9 @@ public class EchoController {
             return "Light";
         }
         return "Unknown";
+    }
+
+    public static void sendRequestGetClassList() throws IOException {
+        NodeProfile.getG().reqGetSelfNodeClassList().send();
     }
 }

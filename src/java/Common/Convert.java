@@ -58,7 +58,7 @@ public class Convert {
     }
 
     // packing an array of 4 bytes to an int, big endian, clean code
-    public static int fromByteArray(byte[] bytes) {
+    public static int byteArrayToInt(byte[] bytes) {
         byte[] tempByte = null;
         switch (bytes.length) {
             case 0:
@@ -72,6 +72,9 @@ public class Convert {
             case 3:
                 tempByte = new byte[]{(byte) 0x00, bytes[0], bytes[1], bytes[2]};
                 break;
+            case 4:
+                tempByte = bytes;
+                break;
         }
         return ((tempByte[0] & 0xFF) << 24)
                 | ((tempByte[1] & 0xFF) << 16)
@@ -79,7 +82,7 @@ public class Convert {
                 | ((tempByte[3] & 0xFF) << 0);
     }
 
-    public static byte[] toByteArray(int value) {
+    public static byte[] intToByteArray(int value) {
         return new byte[]{
             (byte) (value >> 24),
             (byte) (value >> 16),
@@ -95,8 +98,12 @@ public class Convert {
         dtf.setTimeZone(TimeZone.getTimeZone("GMT"));
         return dtf.format(now);
     }
+    static byte[] mRatedElectricEnergy = {(byte) 0x00, (byte) 0x00, (byte) 0x13, (byte) 0x88};
 
     public static void main(String[] args) {
-//        System.out.println(fromByteArray(new byte[]{(byte) 0x20}));
+//        System.out.println(byteArrayToInt(new byte[]{(byte) 0x20}));
+//printHexArray(intToByteArray(99));
+//printHexArray(hexStringToByteArray("0x4050"));
+//        System.out.println(byteArrayToInt(mRatedElectricEnergy));
     }
 }
