@@ -83,10 +83,10 @@ public enum MyEchoDevices {
     public int d3;
     public int e0;
 
-    private MyEchoDevices(short classcode, String name) {
+    private MyEchoDevices(short classcode, String type) {
         this.classcode = classcode;
-        this.type = name;
-        this.name = name;
+        this.type = type;
+        this.name = type;
     }
 
     // </editor-fold>
