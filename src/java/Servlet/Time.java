@@ -30,7 +30,11 @@ public class Time extends HttpServlet {
      * @param response
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) {
-        response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("text/plain;charset=SHIFT_JIS");
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "POST, GET");
+        response.setHeader("Access-Control-Max-Age", "3600");
+        response.setHeader("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
         PrintWriter out = null;
         try {
             out = response.getWriter();

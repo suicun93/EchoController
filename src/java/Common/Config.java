@@ -8,6 +8,7 @@ package Common;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -51,7 +52,7 @@ public class Config {
             System.err.println("Load name config error: " + ex.getMessage());
             return;
         }
-        String config = new String(encoded, StandardCharsets.UTF_8);
+        String config = new String(encoded, Charset.forName("SHIFT-JIS"));
 
         // Split 4 nick name
         String[] nameConfig = config.split("\\,");
