@@ -60,6 +60,7 @@ public class GetItemAvailable extends HttpServlet {
                     responseString.append(",\n");
                 });
                 responseString.deleteCharAt(responseString.length() - 1);
+                responseString.deleteCharAt(responseString.length() - 1);
             }
             responseString.append("}\n"
                     + "}");
