@@ -52,7 +52,6 @@ public class EchoController {
                 public void run() {
                     // Remove Other nodes
                     if (Echo.isStarted()) {
-                        listDevice.clear();
                         for (EchoNode node : Echo.getNodes()) {
                             if (!node.isSelfNode()) {
                                 Echo.removeOtherNode(node.getAddressStr());
@@ -86,6 +85,7 @@ public class EchoController {
             @Override
             public void onNewNode(EchoNode node) {
                 super.onNewNode(node);
+                listDevice.clear();
                 // Found new Node.
                 System.out.println("Node = " + node.getNodeProfile());
                 System.out.println("--------");
