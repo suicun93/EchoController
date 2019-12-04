@@ -8,9 +8,9 @@ package Servlet;
 import Common.Config;
 import Common.MyEchoDevices;
 import static Common.MyEchoDevices.UNKNOWN;
-import Main.EchoController;
-import com.sonycsl.echo.eoj.device.DeviceObject;
-import com.sonycsl.echo.eoj.device.managementoperation.Controller;
+import static Main.EchoController.listDevice;
+import static Main.EchoController.startController;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -38,28 +38,26 @@ public class GetItemAvailable extends HttpServlet {
 
             // get Param
             out = response.getWriter();
-            EchoController.startController();
-            EchoController.sendRequestGetClassList();
+            startController();
 
             // Load config
             Config.updateDeviceNickname();
 
             StringBuilder responseString = new StringBuilder("success" + "\n");
-            for (DeviceObject deviceObject : EchoController.listDevice) {
-                if (!(deviceObject instanceof Controller)) {
-                    MyEchoDevices device = MyEchoDevices.from(deviceObject);
-                    if (device != UNKNOWN) {
-                        responseString.append(device).append("\n");
-                    } else {
-                        responseString.append(UNKNOWN.name).append(",");
-                        responseString.append(UNKNOWN.nickname).append(",");
-                        responseString.append(String.format("0x%04x", deviceObject.getEchoClassCode())).append(",");
-                        responseString.append(deviceObject.getNode().getAddressStr()).append("\n");
-                    }
+            listDevice.forEach((deviceObject) -> {
+                MyEchoDevices device = MyEchoDevices.from(deviceObject);
+                if (device != UNKNOWN) {
+                    responseString.append(device).append("\n");
+                } else {
+                    responseString.append(UNKNOWN.name).append(",");
+                    responseString.append(UNKNOWN.nickname).append(",");
+                    responseString.append(String.format("0x%04x", deviceObject.getEchoClassCode())).append(",");
+                    responseString.append(deviceObject.getNode().getAddressStr()).append("\n");
                 }
-            }
+            });
             responseString.deleteCharAt(responseString.length() - 1);
             out.print(responseString.toString());
+
         } catch (IOException ex) {
             System.out.println(GetItemAvailable.class.getName() + " " + ex.getMessage());
             if (out != null) {

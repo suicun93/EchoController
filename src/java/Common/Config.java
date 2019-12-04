@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Calendar;
 
 /**
  *
@@ -21,6 +20,7 @@ public class Config {
 
     private static final boolean RUNNING_ON_LINUX = true;
 //    private static final boolean RUNNING_ON_LINUX = false;
+    public static long PERIOD = 5000;
 
     public static String getLink() {
         if (RUNNING_ON_LINUX) {
