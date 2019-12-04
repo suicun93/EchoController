@@ -22,6 +22,7 @@ public class Config {
     private static final boolean RUNNING_ON_LINUX = true;
 //    private static final boolean RUNNING_ON_LINUX = false;
     public static long PERIOD = 5000;
+    public static String filename = "Config.txt";
 
     public static String getLink() {
         if (RUNNING_ON_LINUX) {
@@ -31,12 +32,18 @@ public class Config {
         }
     }
 
-    public static void save(String fileName, String content) throws Exception {
-
+    public static void updateConfig() throws Exception {
         try {
             // Save config
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(getLink() + fileName))) {
-                writer.write(content);
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(getLink() + filename))) {
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.append(MyEchoDevices.EV.name).append(",");
+                stringBuilder.append(MyEchoDevices.BATTERY.name).append(",");
+                stringBuilder.append(MyEchoDevices.SOLAR.name).append(",");
+                stringBuilder.append(MyEchoDevices.LIGHT.name);
+
+                // Update to MyEchoDevices constants
+                writer.write(stringBuilder.toString());
             }
         } catch (IOException e) {
             throw new Exception(Config.class.getName() + ", Save: " + e.getMessage());
@@ -47,7 +54,7 @@ public class Config {
         // Load Config
         byte[] encoded;
         try {
-            encoded = Files.readAllBytes(Paths.get(getLink() + "Config.txt"));
+            encoded = Files.readAllBytes(Paths.get(getLink() + filename));
         } catch (IOException ex) {
             System.err.println("Load name config error: " + ex.getMessage());
             return;
@@ -67,8 +74,8 @@ public class Config {
         lightName = nameConfig[3];
 
         // Update to MyEchoDevices constants
-        MyEchoDevices.BATTERY.name = batteryName;
         MyEchoDevices.EV.name = evName;
+        MyEchoDevices.BATTERY.name = batteryName;
         MyEchoDevices.SOLAR.name = solarName;
         MyEchoDevices.LIGHT.name = lightName;
     }

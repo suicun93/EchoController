@@ -4,12 +4,14 @@
         <servlet-name>Time</servlet-name>
         <servlet-class>Servlet.Time</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SetName</servlet-name>
+        <servlet-class>Servlet.SetName</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Time</servlet-name>
         <url-pattern>/Time</url-pattern>
     </servlet-mapping>
-    
-    
     <servlet>
         <servlet-name>GetItemAvailable</servlet-name>
         <servlet-class>Servlet.GetItemAvailable</servlet-class>
@@ -18,8 +20,6 @@
         <servlet-name>GetItemAvailable</servlet-name>
         <url-pattern>/GetItemAvailable</url-pattern>
     </servlet-mapping>
-    
-    
     <servlet>
         <servlet-name>Stop</servlet-name>
         <servlet-class>Servlet.StopController</servlet-class>
@@ -28,13 +28,15 @@
         <servlet-name>Stop</servlet-name>
         <url-pattern>/Stop</url-pattern>
     </servlet-mapping>
-    
     <!--Display name-->
     <display-name>
         収集装置
     </display-name>
-    
     <!--Session Config-->
+    <servlet-mapping>
+        <servlet-name>SetName</servlet-name>
+        <url-pattern>/SetName</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30

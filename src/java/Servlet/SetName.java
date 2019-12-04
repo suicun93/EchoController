@@ -5,12 +5,13 @@
  */
 package Servlet;
 
-import Common.Convert;
-import java.io.BufferedReader;
+import Common.Config;
+import Common.MyEchoDevices;
+import static Servlet.Time.getParam;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,14 +21,14 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author hoang-trung-duc
  */
-public class Time extends HttpServlet {
+public class SetName extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
-     * @param request
-     * @param response
+     * @param request servlet request
+     * @param response servlet response
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) {
         response.setContentType("text/plain;charset=SHIFT_JIS");
@@ -38,14 +39,24 @@ public class Time extends HttpServlet {
         PrintWriter out = null;
         try {
             out = response.getWriter();
-            String time = getParam(request);
-            if (time.isEmpty()) { // -> Getter
-                out.print(Convert.getCurrentTime());
-            } else {              // -> Setter
-                Runtime.getRuntime().exec(new String[]{"sudo", "date", "--set", time});
-                out.print("success");
+            String nameRequest = getParam(request);
+            String[] params = nameRequest.split("\\,");
+            if (params.length != 2) {
+                out.print("Request Invalid");
+                return;
             }
-        } catch (IOException ex) {
+            String type = params[0];
+            String name = params[1];
+            for (MyEchoDevices device : MyEchoDevices.values()) {
+                if (device.type.equalsIgnoreCase(type)) {
+                    device.name = name;
+                    Config.updateConfig();
+                    out.print("success");
+                    return;
+                }
+            }
+            out.print("No device found");
+        } catch (Exception ex) {
             System.out.println(Time.class.getName() + ex.getMessage());
             if (out != null) {
                 out.print(Time.class.getName() + ex.getMessage());
@@ -54,40 +65,6 @@ public class Time extends HttpServlet {
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    public static String getParam(HttpServletRequest request) throws IOException {
-
-        String body;
-        StringBuilder stringBuilder = new StringBuilder();
-        BufferedReader bufferedReader = null;
-
-        try {
-            InputStream inputStream = request.getInputStream();
-            if (inputStream != null) {
-                bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-                char[] charBuffer = new char[128];
-                int bytesRead;
-                while ((bytesRead = bufferedReader.read(charBuffer)) > 0) {
-                    stringBuilder.append(charBuffer, 0, bytesRead);
-                }
-            } else {
-                stringBuilder.append("");
-            }
-        } catch (IOException ex) {
-            throw ex;
-        } finally {
-            if (bufferedReader != null) {
-                try {
-                    bufferedReader.close();
-                } catch (IOException ex) {
-                    throw ex;
-                }
-            }
-        }
-
-        body = stringBuilder.toString();
-        return body;
-    }
-
     /**
      * Handles the HTTP <code>GET</code> method.
      *
