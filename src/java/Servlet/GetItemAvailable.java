@@ -47,9 +47,7 @@ public class GetItemAvailable extends HttpServlet {
             StringBuilder responseString = new StringBuilder("{ \n"
                     + "   \"success\":\"OK\",");
             responseString.append("\"devices\":{");
-            if (listDevice.isEmpty()) {
-                responseString.append("\"\""); // empty
-            } else {
+            if (!listDevice.isEmpty()) {
                 listDevice.forEach((DeviceObject deviceObject) -> {
                     MyEchoDevices device = MyEchoDevices.from(deviceObject);
                     if (device != UNKNOWN) {
