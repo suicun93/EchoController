@@ -37,38 +37,8 @@
                         <div>
                             <div class="devices top-devices columns">
                                 <div class="device-ev column is-4-fullhd is-4-desktop is-6-tablet ">
-                                    <div class="device">
-                                        <div class="device-img-wrapper">
-                                            <img src="img/car.png" alt="Electronic Vehicle">
-                                        </div>
-                                        <div class="device-info-wrapper">
-                                            <h5>Set Name EV</h5>
-                                            <h2>100Wh</h2>
-                                        </div>
-                                    </div>
-                                    <div class="ev-charging">
-                                        <div class="delay1"></div>
-                                        <div class="delay2"></div>
-                                        <div class="delay3"></div>
-                                        <div class="delay4"></div>
-                                    </div>
                                 </div>
                                 <div class="device-batt column is-4-fullhd is-4-desktop is-6-tablet is-offset-4-fullhd is-offset-4-desktop is-offset-0-tablet  ">
-                                    <div class="device">
-                                        <div class="device-img-wrapper">
-                                            <img src="img/battery.png" alt="Battery">
-                                        </div>
-                                        <div class="device-info-wrapper">
-                                            <h5>Set Name EV</h5>
-                                            <h2>100Wh</h2>
-                                        </div>
-                                    </div>
-                                    <div class="batt-discharging">
-                                        <div class="delay1"></div>
-                                        <div class="delay2"></div>
-                                        <div class="delay3"></div>
-                                        <div class="delay4"></div>
-                                    </div>
                                 </div>
                             </div>
                             <div class="devices middle-devices columns">
@@ -83,26 +53,8 @@
                             </div>
                             <div class="devices bottom-devices columns">
                                 <div class="device-solar column is-4-fullhd is-4-desktop is-6-tablet ">
-                                    <div class="device">
-                                        <div class="device-img-wrapper">
-                                            <img src="img/sun.png" alt="Solar Panel">
-                                        </div>
-                                        <div class="device-info-wrapper">
-                                            <h5>Set Name EV</h5>
-                                            <h2>100Wh</h2>
-                                        </div>
-                                    </div>
                                 </div>
                                 <div class="device-light column is-4-fullhd is-4-desktop is-6-tablet is-offset-4-fullhd is-offset-4-desktop is-offset-0-tablet is-offset-0-mobile">
-                                    <div class="device">
-                                        <div class="device-img-wrapper">
-                                            <img src="img/light.png" alt="Light">
-                                        </div>
-                                        <div class="device-info-wrapper">
-                                            <h5>Set Name EV</h5>
-                                            <h2>100Wh</h2>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -113,5 +65,9 @@
     </div>
 
 </body>
+<script src="js/jquery.js"></script>
+<script src="js/common.js"></script>
+<script src="js/display-page.js"></script>
+<script src="js/device-json.js"></script>
 
 </html>

@@ -1,11 +1,16 @@
-function responseMsg(type,content){
-    console.log("<div class=\"notification is-" + (type == "success" ? "primary" : "danger") +"\" id=\"response-msg\"><button class=\"delete\"></button>"+content+"</div>");
-    return "<div class=\"notification is-" + (type == "success" ? "primary" : "danger") +"\" id=\"response-msg\" ><button class=\"delete\"></button>"+content+"</div>";
+var hasMsg = false;
+function responseMsg(type, content) {
+    if (!hasMsg) {
+        hasMsg = true;
+        return "<div class=\"notification is-" + (type == "success" ? "primary" : "danger") + "\" id=\"response-msg\" ><button class=\"delete\"></button>" + content + "</div>";
+    }
+}
+function cleanMsg(e) {
+    $("#response-msg").remove();
+    hasMsg = false;
 }
 function closeMsg() {
-    $(".delete").click(function (e) { 
-        $("#response-msg").remove();
-    });
+    $(".delete").click(cleanMsg);
 }
 
 const INTERVAL_TIME = 15000;

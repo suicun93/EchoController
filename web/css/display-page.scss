@@ -22,10 +22,19 @@ $device-info-color:#f16953;
         }
     }
 }
+.device-light{
+    position: relative;
+    .device{
+        position: absolute;
+        bottom: 0.75rem;
+        right: 0.75rem;
+    }
+}
 .device{
     background: $device-bg-color;
     display: flex;
     border-radius: $border-radius;
+    width: 100%;
     .device-img-wrapper{
         width: 40%;
         padding: 1rem;
@@ -94,13 +103,16 @@ $device-info-color:#f16953;
 .ev-discharging{
     @include electric-arrow(45deg);
 }
-.batt-discharging{
+.battery-discharging{
     float: left !important;
     @include electric-arrow(135deg);
 }
-.batt-charging{
+.battery-charging{
     float: left !important;
     @include electric-arrow(-45deg);
     position: relative;
     top: 3rem;
+}
+.solar-charging{
+    @include electric-arrow(315deg);
 }

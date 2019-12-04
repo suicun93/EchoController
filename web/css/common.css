@@ -36,4 +36,8 @@ body {
   margin-bottom: 1rem;
   width: 5rem; }
 
+.notification {
+  margin-left: 25%;
+  max-width: 50%; }
+
 /*# sourceMappingURL=common.css.map */

@@ -45,18 +45,11 @@
                         <div class="right-menu-item" id="modal">
                             <h3>時刻設定</h3>
                             <div class="right-menu-item-input">
-                                <input size="16" type="text" readonly class="form_datetime input is-rounded is-primary"
-                                    id="time">
+                                <input size="16" type="text" readonly class="form_datetime input is-rounded is-primary" id="time">
                             </div>
                             <button class="button is-primary" onclick="setTime()">
                                 設定
                             </button>
-                            <div class="notification is-primary" id="success-msg" style="display: none">
-                                <button class="delete"></button>
-                                Set time successfully!
-                            </div>
-                            <div class="notification is-danger" id="failed-msg" style="display: none">
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -65,14 +58,15 @@
     </div>
 
 </body>
-<script src="js/common.js"></script>
-<script src="js/device-json.js"></script>
+
 <script src="js/jquery.js"></script>
+<script src="js/common.js"></script>
 <script src="js/bootstrap-datetimepicker.min.js"></script>
 <script type="text/javascript">
     $(".form_datetime").datetimepicker({ format: 'yyyy-mm-dd hh:ii' });
 </script>
 <script src="js/open-modal.js"></script>
+<script src="js/device-json.js"></script>
 <script src="js/time.js"></script>
 
 </html>

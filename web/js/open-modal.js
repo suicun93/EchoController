@@ -1,4 +1,4 @@
-window.onload = deviceInit();
+var isDisplay = false;
 function deviceInit() {
     function menuItemElement(device, name, img, alt) {
         return "<div class='menu-item' onclick=\"showModal(\'"+ device +"\'" + ","+"\'" + name + "\')\">" +
@@ -6,20 +6,20 @@ function deviceInit() {
             "<img src='img/" + img + ".png' alt='" + alt + "'></div>" +
             "<span class=''>" + name + "</span></div>"
     };
-    if (devices[0].hasOwnProperty("ev")) {
-        let ev = devices[0].ev;
+    if (devices.hasOwnProperty("ev")) {
+        let ev = devices.ev;
         $('#device-menu').append(menuItemElement('ev', ev.name, 'car', 'Electric Vehicle'));
     }
-    if (devices[0].hasOwnProperty("battery")) {
-        let battery = devices[0].battery;
+    if (devices.hasOwnProperty("battery")) {
+        let battery = devices.battery;
         $('#device-menu').append(menuItemElement('battery', battery.name, 'battery', 'Battery'));
     }
-    if (devices[0].hasOwnProperty("solar")) {
-        let solar = devices[0].solar;
+    if (devices.hasOwnProperty("solar")) {
+        let solar = devices.solar;
         $('#device-menu').append(menuItemElement('solar', solar.name, 'sun', 'Solar Energy'));
     }
-    if (devices[0].hasOwnProperty("light")) {
-        let light = devices[0].light;
+    if (devices.hasOwnProperty("light")) {
+        let light = devices.light;
         $('#device-menu').append(menuItemElement('light', light.name, 'light', 'Light'));
     }
 }
@@ -37,10 +37,13 @@ function showModal(modalToShow, deviceName) {
         case "common":
             modal.html("<h3>時刻設定</h3>" +
                 "<div class='right-menu-item-input'>" +
-                "<input size='16' type='text' readonly class='form_datetime input is-rounded is-primary'id='time'>" +
+                "<input size='16' type='text' readonly class='form_datetime input is-rounded is-primary' id='time'>" +
                 "</div>" +
                 "<button class='button is-primary' onclick='setTime()'>設定</button>");
-            // loadTime();
+            timeInput = document.getElementById("time");
+            $(".datetimepicker").remove();
+            $(".form_datetime").datetimepicker({ format: 'yyyy-mm-dd hh:ii' });
+            loadTime();
             break;
         case "solar":
             modal.html(modalElement('solar',deviceName));
