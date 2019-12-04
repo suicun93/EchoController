@@ -13,6 +13,7 @@ public enum OperationMode {
     Other((byte) 0x40),
     RapidCharging((byte) 0x41),
     Charging((byte) 0x42),
+    Discharging((byte) 0x43),
     Standby((byte) 0x44),
     Test((byte) 0x45),
     Automatic((byte) 0x46),
