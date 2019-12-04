@@ -54,7 +54,7 @@ public class Config {
         }
         String config = new String(encoded, Charset.forName("SHIFT-JIS"));
 
-        // Split 4 nick name
+        // Split 4 nick type
         String[] nameConfig = config.split("\\,");
         if (config.isEmpty() || nameConfig.length != 4) {
             System.err.println("Load name config error : File Config is empty.");
@@ -67,10 +67,10 @@ public class Config {
         lightName = nameConfig[3];
 
         // Update to MyEchoDevices constants
-        MyEchoDevices.BATTERY.nickname = batteryName;
-        MyEchoDevices.EV.nickname = evName;
-        MyEchoDevices.SOLAR.nickname = solarName;
-        MyEchoDevices.LIGHT.nickname = lightName;
+        MyEchoDevices.BATTERY.name = batteryName;
+        MyEchoDevices.EV.name = evName;
+        MyEchoDevices.SOLAR.name = solarName;
+        MyEchoDevices.LIGHT.name = lightName;
     }
 
 }

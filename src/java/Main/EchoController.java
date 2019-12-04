@@ -7,6 +7,9 @@ package Main;
 
 import Common.Config;
 import Common.Convert;
+import Common.MyEchoDevices;
+import Common.OperationStatus;
+import Common.OperationMode;
 import com.sonycsl.echo.Echo;
 import com.sonycsl.echo.EchoProperty;
 import com.sonycsl.echo.eoj.EchoObject;
@@ -92,45 +95,171 @@ public class EchoController {
                 System.out.println("--------\n");
             }
 
-            // Found new DeviceObject.
             @Override
-            public void onNewDeviceObject(DeviceObject device) {
-                super.onNewDeviceObject(device);
+            public void onNewElectricVehicle(ElectricVehicle device) {
+                super.onNewElectricVehicle(device);
                 listDevice.add(device);
+                String dv = "ev";
                 System.out.println("\t   New " + deviceDetect(device) + " found.");
                 System.out.println("\t   Device = " + device);
                 System.out.println("\t   ----\n\n");
-
-                // Set Receiver for getter setter.
                 device.setReceiver(new ElectricVehicle.Receiver() {
-                    // Getter Receiver 
                     @Override
-                    protected boolean onGetProperty(EchoObject eoj, short tid, byte esv, EchoProperty property, boolean success) {
+                    protected void onGetOperationStatus(EchoObject eoj, short tid, byte esv, EchoProperty property, boolean success) {
+                        super.onGetOperationStatus(eoj, tid, esv, property, success); //To change body of generated methods, choose Tools | Templates.
                         if (!success) {
-                            System.out.println("onGetProperty Failed: EPC = " + Convert.byteToHex(property.epc));
+                            System.out.println("onGetProperty " + dv + " Failed: EPC = " + Convert.byteToHex(property.epc));
                         } else {
-                            System.out.println("onGetProperty Success:  EPC = " + Convert.byteToHex(property.epc) + " Data: ");
-                            Convert.printHexArray(property.edt);
+                            MyEchoDevices.EV.operationStatus = OperationStatus.from(property.edt[0]);
                         }
-                        return super.onGetProperty(eoj, tid, esv, property, success);
                     }
 
-                    // Setter Receiver
                     @Override
-                    protected boolean onSetProperty(EchoObject eoj, short tid, byte esv, EchoProperty property, boolean success) {
+                    protected void onGetOperationModeSetting(EchoObject eoj, short tid, byte esv, EchoProperty property, boolean success) {
+                        super.onGetOperationModeSetting(eoj, tid, esv, property, success); //To change body of generated methods, choose Tools | Templates.
                         if (!success) {
-                            System.out.println("onSetProperty Failed: EPC = " + Convert.byteToHex(property.epc));
+                            System.out.println("onGetProperty " + dv + " Failed: EPC = " + Convert.byteToHex(property.epc));
                         } else {
-                            System.out.println("onSetProperty Success:  EPC = " + Convert.byteToHex(property.epc));
+                            MyEchoDevices.EV.operationMode = OperationMode.from(property.edt[0]);
                         }
-                        return super.onSetProperty(eoj, tid, esv, property, success);
+                    }
+
+                    @Override
+                    protected void onGetMeasuredInstantaneousChargeDischargeElectricEnergy(EchoObject eoj, short tid, byte esv, EchoProperty property, boolean success) {
+                        super.onGetMeasuredInstantaneousChargeDischargeElectricEnergy(eoj, tid, esv, property, success); //To change body of generated methods, choose Tools | Templates.
+                        if (!success) {
+                            System.out.println("onGetProperty " + dv + " Failed: EPC = " + Convert.byteToHex(property.epc));
+                        } else {
+                            MyEchoDevices.EV.d3 = Convert.byteArrayToInt(property.edt);
+                        }
+                    }
+
+                });
+                try {
+                    device.get().reqGetOperationStatus().send();
+                    device.get().reqGetOperationModeSetting().send();
+                    device.get().reqGetMeasuredInstantaneousChargeDischargeElectricEnergy().send();
+                } catch (IOException e) {
+                    System.out.println("Get Property EV Failed: " + e.getMessage());
+                }
+            }
+
+            @Override
+            public void onNewBattery(Battery device) {
+                super.onNewBattery(device); //To change body of generated methods, choose Tools | Templates.
+
+                listDevice.add(device);
+                String dv = "battery";
+                System.out.println("\t   New " + deviceDetect(device) + " found.");
+                System.out.println("\t   Device = " + device);
+                System.out.println("\t   ----\n\n");
+                device.setReceiver(new Battery.Receiver() {
+                    @Override
+                    protected void onGetOperationStatus(EchoObject eoj, short tid, byte esv, EchoProperty property, boolean success) {
+                        super.onGetOperationStatus(eoj, tid, esv, property, success); //To change body of generated methods, choose Tools | Templates.
+                        if (!success) {
+                            System.out.println("onGetProperty " + dv + " Failed: EPC = " + Convert.byteToHex(property.epc));
+                        } else {
+                            MyEchoDevices.BATTERY.operationStatus = OperationStatus.from(property.edt[0]);
+                        }
+                    }
+
+                    @Override
+                    protected void onGetOperationModeSetting(EchoObject eoj, short tid, byte esv, EchoProperty property, boolean success) {
+                        super.onGetOperationModeSetting(eoj, tid, esv, property, success); //To change body of generated methods, choose Tools | Templates.
+                        if (!success) {
+                            System.out.println("onGetProperty " + dv + " Failed: EPC = " + Convert.byteToHex(property.epc));
+                        } else {
+                            MyEchoDevices.BATTERY.operationMode = OperationMode.from(property.edt[0]);
+                        }
+                    }
+
+                    @Override
+                    protected void onGetMeasuredInstantaneousChargeDischargeElectricEnergy(EchoObject eoj, short tid, byte esv, EchoProperty property, boolean success) {
+                        super.onGetMeasuredInstantaneousChargeDischargeElectricEnergy(eoj, tid, esv, property, success); //To change body of generated methods, choose Tools | Templates.
+                        if (!success) {
+                            System.out.println("onGetProperty " + dv + " Failed: EPC = " + Convert.byteToHex(property.epc));
+                        } else {
+                            MyEchoDevices.BATTERY.d3 = Convert.byteArrayToInt(property.edt);
+                        }
+                    }
+
+                });
+                try {
+                    device.get().reqGetOperationStatus().send();
+                    device.get().reqGetOperationModeSetting().send();
+                    device.get().reqGetMeasuredInstantaneousChargeDischargeElectricEnergy().send();
+                } catch (IOException e) {
+                    System.out.println("Get Property " + dv + " Failed: " + e.getMessage());
+                }
+            }
+
+            @Override
+            public void onNewHouseholdSolarPowerGeneration(HouseholdSolarPowerGeneration device) {
+                super.onNewHouseholdSolarPowerGeneration(device); //To change body of generated methods, choose Tools | Templates.
+                listDevice.add(device);
+                String dv = "solar";
+                System.out.println("\t   New " + deviceDetect(device) + " found.");
+                System.out.println("\t   Device = " + device);
+                System.out.println("\t   ----\n\n");
+                device.setReceiver(new HouseholdSolarPowerGeneration.Receiver() {
+                    @Override
+                    protected void onGetOperationStatus(EchoObject eoj, short tid, byte esv, EchoProperty property, boolean success) {
+                        super.onGetOperationStatus(eoj, tid, esv, property, success); //To change body of generated methods, choose Tools | Templates.
+                        if (!success) {
+                            System.out.println("onGetProperty " + dv + " Failed: EPC = " + Convert.byteToHex(property.epc));
+                        } else {
+                            MyEchoDevices.SOLAR.operationStatus = OperationStatus.from(property.edt[0]);
+                        }
+                    }
+
+                    @Override
+                    protected void onGetMeasuredInstantaneousAmountOfElectricityGenerated(EchoObject eoj, short tid, byte esv, EchoProperty property, boolean success) {
+                        super.onGetMeasuredInstantaneousAmountOfElectricityGenerated(eoj, tid, esv, property, success); //To change body of generated methods, choose Tools | Templates.
+                        if (!success) {
+                            System.out.println("onGetProperty " + dv + " Failed: EPC = " + Convert.byteToHex(property.epc));
+                        } else {
+                            MyEchoDevices.SOLAR.e0 = Convert.byteArrayToInt(property.edt);
+                        }
                     }
                 });
+                try {
+                    device.get().reqGetOperationStatus().send();
+                    device.get().reqGetMeasuredInstantaneousAmountOfElectricityGenerated().send();
+                } catch (IOException e) {
+                    System.out.println("Get Property " + dv + " Failed: " + e.getMessage());
+                }
             }
-        }); // No more events.
-    }
-    // Device Detection
 
+            @Override
+            public void onNewGeneralLighting(GeneralLighting device) {
+                super.onNewGeneralLighting(device); //To change body of generated methods, choose Tools | Templates.
+                listDevice.add(device);
+                String dv = "solar";
+                System.out.println("\t   New " + deviceDetect(device) + " found.");
+                System.out.println("\t   Device = " + device);
+                System.out.println("\t   ----\n\n");
+                device.setReceiver(new GeneralLighting.Receiver() {
+                    @Override
+                    protected void onGetOperationStatus(EchoObject eoj, short tid, byte esv, EchoProperty property, boolean success) {
+                        super.onGetOperationStatus(eoj, tid, esv, property, success); //To change body of generated methods, choose Tools | Templates.
+                        if (!success) {
+                            System.out.println("onGetProperty " + dv + " Failed: EPC = " + Convert.byteToHex(property.epc));
+                        } else {
+                            MyEchoDevices.LIGHT.operationStatus = OperationStatus.from(property.edt[0]);
+                        }
+                    }
+                });
+                try {
+                    device.get().reqGetOperationStatus().send();
+                } catch (IOException e) {
+                    System.out.println("Get Property " + dv + " Failed: " + e.getMessage());
+                }
+            }
+        });
+    }
+
+    // Device Detection
     private static String deviceDetect(DeviceObject device) {
         // Device detection
         if (device instanceof Controller) {

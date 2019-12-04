@@ -49,20 +49,15 @@ public class GetItemAvailable extends HttpServlet {
             Config.updateDeviceNickname();
 
             StringBuilder responseString = new StringBuilder("{ \n"
-                    + "   \"success\":\"OK\",");
-            responseString.append("\"devices\":{");
+                    + "   \"success\":\"OK\",\n");
+            responseString.append("\"devices\":{\n");
             if (!listDevice.isEmpty()) {
                 listDevice.forEach((DeviceObject deviceObject) -> {
                     MyEchoDevices device = MyEchoDevices.from(deviceObject);
                     if (device != UNKNOWN) {
                         responseString.append(device).append("\n");
-                    } else {
-                        responseString.append(UNKNOWN.name).append(",");
-                        responseString.append(UNKNOWN.nickname).append(",");
-                        responseString.append(String.format("0x%04x", deviceObject.getEchoClassCode())).append(",");
-                        responseString.append(deviceObject.getNode().getAddressStr()).append("\n");
                     }
-                    responseString.append(",");
+                    responseString.append(",\n");
                 });
                 responseString.deleteCharAt(responseString.length() - 1);
             }
