@@ -8,9 +8,10 @@ package Servlet;
 import Common.Config;
 import Common.MyEchoDevices;
 import static Common.MyEchoDevices.UNKNOWN;
-import Main.EchoController;
+import static Main.EchoController.listDevice;
+import static Main.EchoController.startController;
 import com.sonycsl.echo.eoj.device.DeviceObject;
-import com.sonycsl.echo.eoj.device.managementoperation.Controller;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -38,15 +39,18 @@ public class GetItemAvailable extends HttpServlet {
 
             // get Param
             out = response.getWriter();
-            EchoController.startController();
-            EchoController.sendRequestGetClassList();
+            startController();
 
             // Load config
             Config.updateDeviceNickname();
 
-            StringBuilder responseString = new StringBuilder("success" + "\n");
-            for (DeviceObject deviceObject : EchoController.listDevice) {
-                if (!(deviceObject instanceof Controller)) {
+            StringBuilder responseString = new StringBuilder("{ \n"
+                    + "   \"success\":\"OK\",");
+            responseString.append("\"devices\":{");
+            if (listDevice.isEmpty()) {
+                responseString.append("\"\""); // empty
+            } else {
+                listDevice.forEach((DeviceObject deviceObject) -> {
                     MyEchoDevices device = MyEchoDevices.from(deviceObject);
                     if (device != UNKNOWN) {
                         responseString.append(device).append("\n");
@@ -56,14 +60,21 @@ public class GetItemAvailable extends HttpServlet {
                         responseString.append(String.format("0x%04x", deviceObject.getEchoClassCode())).append(",");
                         responseString.append(deviceObject.getNode().getAddressStr()).append("\n");
                     }
-                }
+                    responseString.append(",");
+                });
+                responseString.deleteCharAt(responseString.length() - 1);
             }
-            responseString.deleteCharAt(responseString.length() - 1);
+            responseString.append("}\n"
+                    + "}");
+
             out.print(responseString.toString());
+
         } catch (IOException ex) {
             System.out.println(GetItemAvailable.class.getName() + " " + ex.getMessage());
             if (out != null) {
-                out.print(GetItemAvailable.class.getName() + " " + ex.getMessage());
+                out.print("{\n"
+                        + "\"success\":\"" + ex.getMessage() + "\"\n"
+                        + "}");
             }
         }
     }

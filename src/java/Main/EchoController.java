@@ -5,6 +5,7 @@
  */
 package Main;
 
+import Common.Config;
 import Common.Convert;
 import com.sonycsl.echo.Echo;
 import com.sonycsl.echo.EchoProperty;
@@ -21,6 +22,8 @@ import com.sonycsl.echo.processing.defaults.DefaultController;
 import com.sonycsl.echo.processing.defaults.DefaultNodeProfile;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  *
@@ -32,19 +35,42 @@ public class EchoController {
     private static final DefaultNodeProfile NODE_PROFILE = new DefaultNodeProfile();
     private static final Controller CONTROLLER = new DefaultController();
     public static ArrayList<DeviceObject> listDevice = new ArrayList<>();
+    public static TimerTask updateTask;
 
     public static void startController() throws IOException {
         if (!Echo.isStarted()) {
             addEvent();
-            listDevice.add(CONTROLLER);
-            Echo.start(NODE_PROFILE, listDevice());
+            Echo.start(NODE_PROFILE, new DeviceObject[]{CONTROLLER});
+            NodeProfile.informG().reqInformInstanceListNotification().send();
+
+            updateTask = new TimerTask() {
+                @Override
+                public void run() {
+                    // Remove Other nodes
+                    if (Echo.isStarted()) {
+                        listDevice.clear();
+                        for (EchoNode node : Echo.getNodes()) {
+                            if (!node.isSelfNode()) {
+                                Echo.removeOtherNode(node.getAddressStr());
+                            }
+                        }
+                        try {
+                            DefaultNodeProfile.getG().reqGetSelfNodeInstanceListS().send();
+                        } catch (IOException ex) {
+                            System.out.println("ex: " + ex.getMessage());
+                        }
+                    }
+                }
+            };
+            new Timer().scheduleAtFixedRate(updateTask, 0, Config.PERIOD);
         }
     }
 
-    // Device Object List to array
-    private static DeviceObject[] listDevice() {
-        DeviceObject[] deviceObjects = new DeviceObject[listDevice.size()];
-        return listDevice.toArray(deviceObjects);
+    public static void stopController() throws IOException {
+        if (Echo.isStarted()) {
+            updateTask.cancel();
+            Echo.clear();
+        }
     }
 
     public static boolean contains(String device) {
@@ -70,9 +96,7 @@ public class EchoController {
             @Override
             public void onNewDeviceObject(DeviceObject device) {
                 super.onNewDeviceObject(device);
-                if (!listDevice.contains(device)) {
-                    listDevice.add(device);
-                }
+                listDevice.add(device);
                 System.out.println("\t   New " + deviceDetect(device) + " found.");
                 System.out.println("\t   Device = " + device);
                 System.out.println("\t   ----\n\n");
@@ -125,9 +149,5 @@ public class EchoController {
             return "Light";
         }
         return "Unknown";
-    }
-
-    public static void sendRequestGetClassList() throws IOException {
-        NodeProfile.getG().reqGetSelfNodeClassList().send();
     }
 }

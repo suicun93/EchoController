@@ -41,10 +41,11 @@ public enum MyEchoDevices {
 
     @Override
     public String toString() {
-        return name + ","
-                + nickname + ","
-                + String.format("0x%04x", classcode) + ","
-                + address;
+        return "\"" + name + "\":{ \n"
+                + "         \"name\":\"" + nickname + "\",\n"
+                + "         \"eoj\":\"" + String.format("0x%04x", classcode) + "\",\n"
+                + "         \"macAdd\":\"" + address + "\"\n"
+                + "      }";
     }
 
     // </editor-fold>
