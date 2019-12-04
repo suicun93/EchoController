@@ -10,6 +10,7 @@ import Common.MyEchoDevices;
 import static Common.MyEchoDevices.UNKNOWN;
 import static Main.EchoController.listDevice;
 import static Main.EchoController.startController;
+import com.sonycsl.echo.eoj.device.DeviceObject;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -43,25 +44,37 @@ public class GetItemAvailable extends HttpServlet {
             // Load config
             Config.updateDeviceNickname();
 
-            StringBuilder responseString = new StringBuilder("success" + "\n");
-            listDevice.forEach((deviceObject) -> {
-                MyEchoDevices device = MyEchoDevices.from(deviceObject);
-                if (device != UNKNOWN) {
-                    responseString.append(device).append("\n");
-                } else {
-                    responseString.append(UNKNOWN.name).append(",");
-                    responseString.append(UNKNOWN.nickname).append(",");
-                    responseString.append(String.format("0x%04x", deviceObject.getEchoClassCode())).append(",");
-                    responseString.append(deviceObject.getNode().getAddressStr()).append("\n");
-                }
-            });
-            responseString.deleteCharAt(responseString.length() - 1);
+            StringBuilder responseString = new StringBuilder("{ \n"
+                    + "   \"success\":\"OK\",");
+            responseString.append("\"devices\":{");
+            if (listDevice.isEmpty()) {
+                responseString.append("\"\""); // empty
+            } else {
+                listDevice.forEach((DeviceObject deviceObject) -> {
+                    MyEchoDevices device = MyEchoDevices.from(deviceObject);
+                    if (device != UNKNOWN) {
+                        responseString.append(device).append("\n");
+                    } else {
+                        responseString.append(UNKNOWN.name).append(",");
+                        responseString.append(UNKNOWN.nickname).append(",");
+                        responseString.append(String.format("0x%04x", deviceObject.getEchoClassCode())).append(",");
+                        responseString.append(deviceObject.getNode().getAddressStr()).append("\n");
+                    }
+                    responseString.append(",");
+                });
+                responseString.deleteCharAt(responseString.length() - 1);
+            }
+            responseString.append("}\n"
+                    + "}");
+
             out.print(responseString.toString());
 
         } catch (IOException ex) {
             System.out.println(GetItemAvailable.class.getName() + " " + ex.getMessage());
             if (out != null) {
-                out.print(GetItemAvailable.class.getName() + " " + ex.getMessage());
+                out.print("{\n"
+                        + "\"success\":\"" + ex.getMessage() + "\"\n"
+                        + "}");
             }
         }
     }
