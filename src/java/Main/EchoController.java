@@ -71,7 +71,9 @@ public class EchoController {
 
     public static void stopController() throws IOException {
         if (Echo.isStarted()) {
-            updateTask.cancel();
+            if (updateTask != null) {
+                updateTask.cancel();
+            }
             Echo.clear();
         }
     }
