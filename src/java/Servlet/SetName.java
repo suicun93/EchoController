@@ -7,13 +7,11 @@ package Servlet;
 
 import Common.Config;
 import Common.MyEchoDevices;
-import static Common.MyEchoDevices.UNKNOWN;
-import static Main.EchoController.listDevice;
-import static Main.EchoController.startController;
-import com.sonycsl.echo.eoj.device.DeviceObject;
-
+import static Servlet.Time.getParam;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -23,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author hoang-trung-duc
  */
-public class GetItemAvailable extends HttpServlet {
+public class SetName extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,39 +38,28 @@ public class GetItemAvailable extends HttpServlet {
         response.setHeader("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
         PrintWriter out = null;
         try {
-
-            // get Param
             out = response.getWriter();
-            startController();
-
-            // Load config
-            Config.updateDeviceNickname();
-
-            StringBuilder responseString = new StringBuilder("{ \n"
-                    + "   \"success\":\"OK\",\n");
-            responseString.append("\"devices\":{\n");
-            if (!listDevice().isEmpty()) {
-                listDevice().forEach((DeviceObject deviceObject) -> {
-                    MyEchoDevices device = MyEchoDevices.from(deviceObject);
-                    if (device != UNKNOWN) {
-                        responseString.append(device).append("\n");
-                        responseString.append(",\n");
-                    }
-                });
-                responseString.deleteCharAt(responseString.length() - 1);
-                responseString.deleteCharAt(responseString.length() - 1);
+            String nameRequest = getParam(request);
+            String[] params = nameRequest.split("\\,");
+            if (params.length != 2) {
+                out.print("Request Invalid");
+                return;
             }
-            responseString.append("}\n"
-                    + "}");
-
-            out.print(responseString.toString());
-
-        } catch (IOException ex) {
-            System.out.println(GetItemAvailable.class.getName() + " " + ex.getMessage());
+            String type = params[0];
+            String name = params[1];
+            for (MyEchoDevices device : MyEchoDevices.values()) {
+                if (device.type.equalsIgnoreCase(type)) {
+                    device.name = name;
+                    Config.updateConfig();
+                    out.print("success");
+                    return;
+                }
+            }
+            out.print("No device found");
+        } catch (Exception ex) {
+            System.out.println(Time.class.getName() + ex.getMessage());
             if (out != null) {
-                out.print("{\n"
-                        + "\"success\":\"" + ex.getMessage() + "\"\n"
-                        + "}");
+                out.print(Time.class.getName() + ex.getMessage());
             }
         }
     }

@@ -25,8 +25,7 @@ import com.sonycsl.echo.processing.defaults.DefaultController;
 import com.sonycsl.echo.processing.defaults.DefaultNodeProfile;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.Arrays;
 
 /**
  *
@@ -37,64 +36,54 @@ public class EchoController {
     // Init nodeProfile, controller, ev, battery, ...
     private static final DefaultNodeProfile NODE_PROFILE = new DefaultNodeProfile();
     private static final Controller CONTROLLER = new DefaultController();
-    public static ArrayList<DeviceObject> listDevice = new ArrayList<>();
-    public static Timer updateTask;
 
     public static void startController() throws IOException {
         if (!Echo.isStarted()) {
             addEvent();
             Echo.start(NODE_PROFILE, new DeviceObject[]{CONTROLLER});
             NodeProfile.informG().reqInformInstanceListNotification().send();
-
-            updateTask = new Timer();
-            updateTask.scheduleAtFixedRate(new TimerTask() {
-                @Override
-                public void run() {
-                    // Remove Other nodes
-                    if (Echo.isStarted()) {
-                        for (EchoNode node : Echo.getNodes()) {
-                            if (!node.isSelfNode()) {
-                                Echo.removeOtherNode(node.getAddressStr());
-                            }
-                        }
-                        try {
-                            DefaultNodeProfile.getG().reqGetSelfNodeInstanceListS().send();
-                        } catch (IOException ex) {
-                            System.out.println("ex: " + ex.getMessage());
-                        }
-                    }
-                }
-            }, 0, Config.PERIOD);
         }
     }
 
     public static void stopController() throws IOException {
-        if (Echo.isStarted()) {
-            if (updateTask != null) {
-                updateTask.cancel();
+        Echo.clear();
+    }
+
+    public static ArrayList<DeviceObject> listDevice() {
+        ArrayList<DeviceObject> listDevice = new ArrayList<>();
+        for (EchoNode node : Echo.getNodes()) {
+            if (!node.isSelfNode()) {
+                listDevice.addAll(Arrays.asList(node.getDevices()));
             }
-            Echo.clear();
         }
+        return listDevice;
     }
 
     // Add Event
     public static void addEvent() {
         Echo.addEventListener(new Echo.EventListener() {
 
-            // Found new Node.
             @Override
-            public void onNewNode(EchoNode node) {
-                super.onNewNode(node);
-                listDevice.clear();
-                // Found new Node.
-                System.out.println("Node = " + node.getNodeProfile());
+            public void onNewNodeProfile(NodeProfile profile) {
+                System.out.println("Node = " + profile);
                 System.out.println("--------");
+                super.onNewNodeProfile(profile);
+                profile.setReceiver(new NodeProfile.Receiver() {
+                    @Override
+                    protected void onGetInstanceListNotification(EchoObject eoj, short tid, byte esv, EchoProperty property, boolean success) {
+                        super.onGetInstanceListNotification(eoj, tid, esv, property, success); //To change body of generated methods, choose Tools | Templates.
+                        for (EchoNode node : Echo.getNodes()) {
+                            if (!node.isSelfNode()) {
+                                Echo.removeOtherNode(node.getAddressStr());
+                            }
+                        }
+                    }
+                });
             }
 
             @Override
             public void onNewElectricVehicle(ElectricVehicle device) {
                 super.onNewElectricVehicle(device);
-                listDevice.add(device);
                 MyEchoDevices dv = MyEchoDevices.EV;
                 System.out.println("\t   Device = " + device);
                 // Setup
@@ -144,7 +133,6 @@ public class EchoController {
             public void onNewBattery(Battery device) {
                 super.onNewBattery(device); //To change body of generated methods, choose Tools | Templates.
 
-                listDevice.add(device);
                 MyEchoDevices dv = MyEchoDevices.BATTERY;
                 System.out.println("\t   Device = " + device);
                 // Set up
@@ -193,7 +181,6 @@ public class EchoController {
             @Override
             public void onNewHouseholdSolarPowerGeneration(HouseholdSolarPowerGeneration device) {
                 super.onNewHouseholdSolarPowerGeneration(device); //To change body of generated methods, choose Tools | Templates.
-                listDevice.add(device);
                 MyEchoDevices dv = MyEchoDevices.SOLAR;
                 System.out.println("\t   Device = " + device);
                 // Set up
@@ -230,7 +217,6 @@ public class EchoController {
             @Override
             public void onNewGeneralLighting(GeneralLighting device) {
                 super.onNewGeneralLighting(device); //To change body of generated methods, choose Tools | Templates.
-                listDevice.add(device);
                 MyEchoDevices dv = MyEchoDevices.LIGHT;
                 System.out.println("\t   Device = " + device);
                 // Set up
@@ -253,26 +239,5 @@ public class EchoController {
                 }
             }
         });
-    }
-
-    // Device Detection
-    private static String deviceDetect(DeviceObject device) {
-        // Device detection
-        if (device instanceof Controller) {
-            return "Controller";
-        }
-        if (device instanceof ElectricVehicle) {
-            return "Electric Vehicle";
-        }
-        if (device instanceof Battery) {
-            return "Battery";
-        }
-        if (device instanceof HouseholdSolarPowerGeneration) {
-            return "Solar";
-        }
-        if (device instanceof GeneralLighting) {
-            return "Light";
-        }
-        return "Unknown";
     }
 }
