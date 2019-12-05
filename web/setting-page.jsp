@@ -42,7 +42,7 @@
                         </div>
                     </div>
                     <div class="right-menu column is-9-fullhd is-7-desktop is-7-tablet">
-                        <div class="right-menu-item" id="modal">
+                        <div class="right-menu-item msg-wrapper" id="modal">
                             <h3>時刻設定</h3>
                             <div class="right-menu-item-input">
                                 <input size="16" type="text" readonly class="form_datetime input is-rounded is-primary" id="time">

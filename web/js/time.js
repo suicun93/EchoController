@@ -1,15 +1,14 @@
 var timeInput = document.getElementById("time");
 window.onload = loadTime();
-let modal = $('#modal');
+let modal = $('.msg-wrapper');
 function loadTime() {
     //FF, Opera, Safari, Chrome
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open('POST', "http://192.168.52.2:8080/Collector/Time", true);
+    xmlHttp.open('POST', "Time", true);
     xmlHttp.setRequestHeader("Content-Type", "text/plain");
     xmlHttp.onload = () => {
         if (xmlHttp.readyState === STATE_READY && xmlHttp.status === STATUS_OK) {
             var date = xmlHttp.responseText;
-            console.log(date);
             var p = date.split(' ');
             var month = p[1] + "";
             var day = p[0] + "";
@@ -19,7 +18,7 @@ function loadTime() {
                     p[2] + '-' + month + '-' + day + " " + p[3].substr(0, 5);
         } else {
             cleanMsg();
-            modal.append(responseMsg(FAIL_STATUS,"<p>Connection failed:</p>" + xmlHttp.status));
+            modal.append(responseMsg(FAIL_STATUS,"<p>Connection failed: loadTime()</p>" + xmlHttp.status));
             closeMsg();
         }
     };
@@ -29,8 +28,7 @@ function loadTime() {
 function setTime() {
     time = timeInput.value;
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("POST", "http://192.168.52.2:8080/Collector/Time", true);
-    
+    xmlHttp.open("POST", "Time", true);
     xmlHttp.onerror = (e) => {
         cleanMsg();
         modal.append(responseMsg(FAIL_STATUS,"<p>GET TIME:</p>"+"Can not connect to server"));
@@ -44,8 +42,9 @@ function setTime() {
                 modal.append(responseMsg(FAIL_STATUS,"<p>Set time failed:</p>  " + revdata));
                 closeMsg();
             } else {
+                console.log("ok");
                 cleanMsg();
-                modal.append(responseMsg(SUCCESS_STATUS,"<p>Set time Successful:</p" + revdata));
+                modal.append(responseMsg(SUCCESS_STATUS,"<p>Set time Successful:</p"));
                 closeMsg();
             }
         } else {

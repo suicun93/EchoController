@@ -19,3 +19,5 @@ const STATE_READY = 4;
 const STATUS_OK = 200;
 const SUCCESS_STATUS = "success";
 const FAIL_STATUS = "failed";
+const ON_STATUS = "ON";
+const OFF_STATUS = "OFF";

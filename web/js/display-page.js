@@ -5,34 +5,55 @@
  */
 //initDevice();
 var isDisplay = true;
-function initDevice(){
-    if(devices.hasOwnProperty("ev")){
+function initDevice() {
+    var solarElectricAmount = 0;
+    var evElectricAmount = 0;
+    var batteryElectricAmount = 0;
+
+    if (devices.hasOwnProperty("ev")) {
         let ev = devices.ev;
-        if(ev.status == "ON"){
-            $(".device-ev").html(deviceElem("ev",ev.name,"car",150,ev.mode));
+        if (ev.status == ON_STATUS) {
+            $(".device-ev").html(deviceElem("ev", ev.name, "car", ev.d3, ev.mode));
+            if (ev.mode == "Charging") {
+                evElectricAmount = ev.d3;
+            } else {
+                evElectricAmount = 0 - ev.d3;
+            }
+        } else {
+            $(".device-ev").html(deviceElem("ev", ev.name, "car", 0, ""));
         }
     }
-    if(devices.hasOwnProperty("battery")){
+    if (devices.hasOwnProperty("battery")) {
         let batt = devices.battery;
-        if(batt.status == "ON"){
-            $(".device-batt").html(deviceElem("battery",batt.name,"battery",150,batt.mode));
+        if (batt.status == ON_STATUS) {
+            $(".device-batt").html(deviceElem("battery", batt.name, "battery", batt.d3, batt.mode));
+            if (batt.mode == "Charging") {
+                batteryElectricAmount = batt.d3;
+            } else {
+                batteryElectricAmount = 0 - batt.d3;
+            }
+        } else {
+            $(".device-batt").html(deviceElem("battery", batt.name, "battery", 0, ""));
         }
     }
-    if(devices.hasOwnProperty("solar")){
+    if (devices.hasOwnProperty("solar")) {
         let solar = devices.solar;
-        if(solar.status == "ON"){
-            $(".device-solar").html(deviceElem("solar",solar.name,"sun",150,"Charging"));
+        if (solar.status == ON_STATUS) {
+            solarElectricAmount = solar.e0;
+            $(".device-solar").html(deviceElem("solar", solar.name, "sun", solar.e0, ""));
+        } else {
+            $(".device-solar").html(deviceElem("solar", solar.name, "sun", 0, ""));
         }
     }
-    if(devices.hasOwnProperty("light")){
+    if (devices.hasOwnProperty("light")) {
         let light = devices.light;
-        if(light.status == "ON"){
-            $(".device-light").html(deviceElem("light",light.name,"light",150,""));
-        }
+        $(".device-light").html(deviceElem("light", light.name, "light", light.status, ""));
     }
-    function deviceElem(device, name, img, value, mode){
+    $("#sum-up").html(sumUp());
+
+    function deviceElem(device, name, img, value, mode) {
         let strMode = "";
-        switch (mode){
+        switch (mode) {
             case "Charging":
                 strMode = "charging";
                 break;
@@ -42,37 +63,23 @@ function initDevice(){
             default:
                 strMode = "";
         }
-        if(device == "solar"){
-            return "<div class='"+device+"-"+strMode+"'>"+
-                    "<div class='delay1'></div>"+
-                    "<div class='delay2'></div>"+
-                    "<div class='delay3'></div>"+
-                    "<div class='delay4'></div>"+
-                "</div>"+
-                "<div class='device'>"+
-                    "<div class='device-img-wrapper'>"+
-                        "<img src='img/"+img+".png' alt='"+name+"'>"+
-                    "</div>"+
-                    "<div class='device-info-wrapper'>"+
-                        "<h5>"+name+"</h5>"+
-                        "<h2>"+value+" Wh</h2>"+
-                    "</div>"+
+        return "<div class='device'>" +
+                "<div class='device-img-wrapper'>" +
+                "<img src='img/" + img + ".png' alt='" + name + "'>" +
+                "</div>" +
+                "<div class='device-info-wrapper'>" +
+                "<h5>" + name + "</h5>" +
+                "<h2>" + value + " Wh</h2>" +
+                "</div>" +
+                "</div>" +
+                "<div class='" + device + "-" + strMode + "'>" +
+                "<div class='delay1'></div>" +
+                "<div class='delay2'></div>" +
+                "<div class='delay3'></div>" +
+                "<div class='delay4'></div>" +
                 "</div>";
-        }
-        return "<div class='device'>"+
-                    "<div class='device-img-wrapper'>"+
-                        "<img src='img/"+img+".png' alt='"+name+"'>"+
-                    "</div>"+
-                    "<div class='device-info-wrapper'>"+
-                        "<h5>"+name+"</h5>"+
-                        "<h2>"+value+" Wh</h2>"+
-                    "</div>"+
-                "</div>"+
-                "<div class='"+device+"-"+strMode+"'>"+
-                    "<div class='delay1'></div>"+
-                    "<div class='delay2'></div>"+
-                    "<div class='delay3'></div>"+
-                    "<div class='delay4'></div>"+
-                "</div>";
+    }
+    function sumUp() {
+        return solarElectricAmount + evElectricAmount + batteryElectricAmount;
     }
 }

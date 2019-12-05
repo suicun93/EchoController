@@ -47,7 +47,7 @@
                                         <img src="img/home.png" alt="House">
                                     </div>
                                     <div class="home-info-wrapper">
-                                        <h2>100Wh</h2>
+                                        <h2 id="sum-up">100Wh</h2>
                                     </div>
                                 </div>
                             </div>
