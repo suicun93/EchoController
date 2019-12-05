@@ -57,6 +57,13 @@ public class GetItemAvailable extends HttpServlet {
                     if (device != UNKNOWN) {
                         responseString.append(device).append("\n");
                         responseString.append(",\n");
+                    } else {
+                        responseString.append("\"" + UNKNOWN.type + "\":{ \n"
+                                + "         \"name\":\"" + UNKNOWN.name + "\",\n"
+                                + "         \"eoj\":\"" + String.format("0x%04x", deviceObject.getEchoClassCode()) + "\",\n"
+                                + "         \"macAdd\":\"" + deviceObject.getNode().getAddressStr() + "\"\n"
+                                + "      }\n").append("\n");
+                        responseString.append(",\n");
                     }
                 });
                 responseString.deleteCharAt(responseString.length() - 1);
