@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author hoang-trung-duc
  */
-public class GetItemAvailable extends HttpServlet {
+public class GetAllItems extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -75,7 +75,7 @@ public class GetItemAvailable extends HttpServlet {
             out.print(responseString.toString());
 
         } catch (IOException ex) {
-            System.out.println(GetItemAvailable.class.getName() + " " + ex.getMessage());
+            System.out.println(GetAllItems.class.getName() + " " + ex.getMessage());
             if (out != null) {
                 out.print("{\n"
                         + "\"success\":\"" + ex.getMessage() + "\"\n"

@@ -9,17 +9,15 @@
         <servlet-name>Time</servlet-name>
         <url-pattern>/Time</url-pattern>
     </servlet-mapping>
-    
     <!--Get All Item-->
     <servlet>
-        <servlet-name>GetItemAvailable</servlet-name>
-        <servlet-class>Servlet.GetItemAvailable</servlet-class>
+        <servlet-name>GetAllItems</servlet-name>
+        <servlet-class>Servlet.GetAllItems</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>GetItemAvailable</servlet-name>
+        <servlet-name>GetAllItems</servlet-name>
         <url-pattern>/GetItemAvailable</url-pattern>
     </servlet-mapping>
-    
     <!--Stop Echo-->
     <servlet>
         <servlet-name>Stop</servlet-name>
@@ -29,7 +27,6 @@
         <servlet-name>Stop</servlet-name>
         <url-pattern>/StopEcho</url-pattern>
     </servlet-mapping>
-    
     <!--Set Name-->
     <servlet>
         <servlet-name>SetName</servlet-name>
@@ -39,18 +36,21 @@
         <servlet-name>SetName</servlet-name>
         <url-pattern>/SetName</url-pattern>
     </servlet-mapping>
-    
     <!--Display name-->
     <display-name>
         収集装置
     </display-name>
-    
     <!--Session Config-->
     <session-config>
         <session-timeout>
             -1
         </session-timeout>
     </session-config>
-    
+    <!--debug-->
+    <!--    <welcome-file-list>
+        <welcome-file>
+            GetItemAvailable
+        </welcome-file>
+    </welcome-file-list>-->
     <!--End-->
 </web-app>
