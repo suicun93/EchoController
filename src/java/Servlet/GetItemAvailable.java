@@ -51,13 +51,13 @@ public class GetItemAvailable extends HttpServlet {
             StringBuilder responseString = new StringBuilder("{ \n"
                     + "   \"success\":\"OK\",\n");
             responseString.append("\"devices\":{\n");
-            if (!listDevice.isEmpty()) {
-                listDevice.forEach((DeviceObject deviceObject) -> {
+            if (!listDevice().isEmpty()) {
+                listDevice().forEach((DeviceObject deviceObject) -> {
                     MyEchoDevices device = MyEchoDevices.from(deviceObject);
                     if (device != UNKNOWN) {
                         responseString.append(device).append("\n");
+                        responseString.append(",\n");
                     }
-                    responseString.append(",\n");
                 });
                 responseString.deleteCharAt(responseString.length() - 1);
                 responseString.deleteCharAt(responseString.length() - 1);
