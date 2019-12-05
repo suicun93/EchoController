@@ -71,7 +71,7 @@ public class EchoController {
                 profile.setReceiver(new NodeProfile.Receiver() {
                     @Override
                     protected void onGetInstanceListNotification(EchoObject eoj, short tid, byte esv, EchoProperty property, boolean success) {
-                        super.onGetInstanceListNotification(eoj, tid, esv, property, success); //To change body of generated methods, choose Tools | Templates.
+                        super.onGetInstanceListNotification(eoj, tid, esv, property, success);
                         for (EchoNode node : Echo.getNodes()) {
                             if (!node.isSelfNode()) {
                                 Echo.removeOtherNode(node.getAddressStr());
