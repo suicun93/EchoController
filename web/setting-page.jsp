@@ -64,6 +64,7 @@
 <script src="js/bootstrap-datetimepicker.min.js"></script>
 <script type="text/javascript">
     $(".form_datetime").datetimepicker({ format: 'yyyy-mm-dd hh:ii' });
+    var isDisplay = false;
 </script>
 <script src="js/open-modal.js"></script>
 <script src="js/device-json.js"></script>

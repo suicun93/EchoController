@@ -65,6 +65,9 @@
     </div>
 
 </body>
+<script type="text/javascript">
+    var isDisplay = true;
+</script>
 <script src="js/jquery.js"></script>
 <script src="js/common.js"></script>
 <script src="js/display-page.js"></script>

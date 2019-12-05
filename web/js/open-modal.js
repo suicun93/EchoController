@@ -1,26 +1,27 @@
-var isDisplay = false;
+
+// window.onload = deviceInit();
 function deviceInit() {
-    function menuItemElement(device, name, img, alt) {
-        return "<div class='menu-item' onclick=\"showModal(\'"+ device +"\'" + ","+"\'" + name + "\')\">" +
+    function menuItemElement(device, name, img, alt, macAdd) {
+        return "<div class='menu-item' onclick=\"showModal(\'" + device + "\'" + "," + "\'" + name + "\'" + "," + "\'" + macAdd + "\')\">" +
             "<div class='item-img'>" +
             "<img src='img/" + img + ".png' alt='" + alt + "'></div>" +
             "<span class=''>" + name + "</span></div>"
     };
     if (devices.hasOwnProperty("ev")) {
         let ev = devices.ev;
-        $('#device-menu').append(menuItemElement('ev', ev.name, 'car', 'Electric Vehicle'));
+        $('#device-menu').append(menuItemElement('ev', ev.name, 'car', 'Electric Vehicle', ev.macAdd));
     }
     if (devices.hasOwnProperty("battery")) {
         let battery = devices.battery;
-        $('#device-menu').append(menuItemElement('battery', battery.name, 'battery', 'Battery'));
+        $('#device-menu').append(menuItemElement('battery', battery.name, 'battery', 'Battery', battery.macAdd));
     }
     if (devices.hasOwnProperty("solar")) {
         let solar = devices.solar;
-        $('#device-menu').append(menuItemElement('solar', solar.name, 'sun', 'Solar Energy'));
+        $('#device-menu').append(menuItemElement('solar', solar.name, 'sun', 'Solar Energy', solar.macAdd));
     }
     if (devices.hasOwnProperty("light")) {
         let light = devices.light;
-        $('#device-menu').append(menuItemElement('light', light.name, 'light', 'Light'));
+        $('#device-menu').append(menuItemElement('light', light.name, 'light', 'Light', light.macAdd));
     }
 }
 
@@ -29,9 +30,9 @@ function showModal(modalToShow, deviceName) {
     function modalElement(modalToShow, deviceName) {
         return "<h3>" + deviceName + "設定</h3>" +
             "<div class='right-menu-item-input'>" +
-            "<label for='"+modalToShow+"-name'>名称:</label>" +
-            "<input size='16' type='text' name='"+modalToShow+"-name' class='input is-rounded is-primary' id='"+modalToShow+"-name'></div>" +
-            "<button class='button is-primary'>設定</button></div>";
+            "<label for='" + modalToShow + "-name'>名称:</label>" +
+            "<input size='16' type='text' name='" + modalToShow + "-name' class='input is-rounded is-primary' id='" + modalToShow + "-name'></div>" +
+            "<button class='button is-primary' id='set-name-btn' onclick=\"setName(\'" + modalToShow + "\')\">設定</button></div>";
     }
     switch (modalToShow) {
         case "common":
@@ -46,16 +47,16 @@ function showModal(modalToShow, deviceName) {
             loadTime();
             break;
         case "solar":
-            modal.html(modalElement('solar',deviceName));
+            modal.html(modalElement('solar', deviceName));
             break;
         case "ev":
-            modal.html(modalElement('ev',deviceName));
+            modal.html(modalElement('ev', deviceName));
             break;
         case "battery":
-            modal.html(modalElement('battery',deviceName));
+            modal.html(modalElement('battery', deviceName));
             break;
         case "light":
-            modal.html(modalElement('light',deviceName));
+            modal.html(modalElement('light', deviceName));
             break;
     }
 }
