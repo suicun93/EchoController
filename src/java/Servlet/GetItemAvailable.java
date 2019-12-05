@@ -33,7 +33,7 @@ public class GetItemAvailable extends HttpServlet {
      * @param response servlet response
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) {
-        response.setContentType("text/plain;charset=SHIFT_JIS");
+        response.setContentType("text/plain;charset=utf-8");
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "POST");
         response.setHeader("Access-Control-Max-Age", "3600");

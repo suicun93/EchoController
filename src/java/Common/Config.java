@@ -59,7 +59,7 @@ public class Config {
             System.err.println("Load name config error: " + ex.getMessage());
             return;
         }
-        String config = new String(encoded, Charset.forName("SHIFT-JIS"));
+        String config = new String(encoded, StandardCharsets.UTF_8);
 
         // Split 4 nick type
         String[] nameConfig = config.split("\\,");
