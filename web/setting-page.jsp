@@ -66,6 +66,7 @@
     $(".form_datetime").datetimepicker({ format: 'yyyy-mm-dd hh:ii' });
     var isDisplay = false;
 </script>
+<script src="js/setting-page.js"></script>
 <script src="js/open-modal.js"></script>
 <script src="js/device-json.js"></script>
 <script src="js/time.js"></script>
