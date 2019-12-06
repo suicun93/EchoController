@@ -22,4 +22,5 @@ const ON_STATUS = "ON";
 const OFF_STATUS = "OFF";
 const DISCHARGE_MODE = "Discharging";
 const CHARGE_MODE = "Charging";
+const RAPID_CHARGE_MODE = "RapidCharging";
 

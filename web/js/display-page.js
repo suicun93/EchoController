@@ -42,7 +42,7 @@ function initDevice() {
         let solar = devices.solar;
         if (solar.status == ON_STATUS) {
             solarElectricAmount = solar.e0;
-            $(".device-solar").html(deviceElem("solar", solar.name, "sun", solar.e0 + " Wh", ""));
+            $(".device-solar").html(deviceElem("solar", solar.name, "sun", solar.e0 + " Wh", CHARGE_MODE));
         } else {
             $(".device-solar").html(deviceElem("solar", solar.name, "sun", 0 + " Wh", ""));
         }
@@ -61,6 +61,7 @@ function initDevice() {
         let strMode = "";
         switch (mode) {
             case CHARGE_MODE:
+            case RAPID_CHARGE_MODE:
                 strMode = "charging";
                 break;
             case DISCHARGE_MODE:
@@ -83,7 +84,7 @@ function initDevice() {
                 "</div>" +
                 "<div class='device-info-wrapper'>" +
                 "<h4>" + name + "</h4>" +
-                "<h2>" + value + " Wh</h2>" +
+                "<h2>" + value + "</h2>" +
                 "</div>" +
                 "</div>";
         } else {
