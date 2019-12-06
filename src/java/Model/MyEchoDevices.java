@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Common;
+package Model;
 
 import com.sonycsl.echo.eoj.device.DeviceObject;
 
@@ -65,13 +65,25 @@ public enum MyEchoDevices {
     };
 
     public static MyEchoDevices from(DeviceObject device) {
-        for (MyEchoDevices e : values()) {
-            if (e.classcode == device.getEchoClassCode()) {
-                e.address = device.getNode().getAddressStr();
-                return e;
+        for (MyEchoDevices myDevice : values()) {
+            if (myDevice.classcode == device.getEchoClassCode()) {
+                return myDevice;
             }
         }
         return UNKNOWN;
+    }
+
+    public static void loadConfig(String[] nameConfig) {
+        String evName, solarName, batteryName, lightName;
+        evName = nameConfig[0];
+        batteryName = nameConfig[1];
+        solarName = nameConfig[2];
+        lightName = nameConfig[3];
+
+        EV.name = evName;
+        BATTERY.name = batteryName;
+        SOLAR.name = solarName;
+        LIGHT.name = lightName;
     }
     // <editor-fold defaultstate="collapsed" desc="// Skip this">
     public final short classcode;

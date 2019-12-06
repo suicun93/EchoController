@@ -5,10 +5,10 @@
  */
 package Common;
 
+import Model.MyEchoDevices;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -50,7 +50,7 @@ public class Config {
         }
     }
 
-    public static void updateDeviceNickname() {
+    public static void updateDeviceName() {
         // Load Config
         byte[] encoded;
         try {
@@ -67,17 +67,9 @@ public class Config {
             System.err.println("Load name config error : File Config is empty.");
             return;
         }
-        String evName, solarName, batteryName, lightName;
-        evName = nameConfig[0];
-        batteryName = nameConfig[1];
-        solarName = nameConfig[2];
-        lightName = nameConfig[3];
 
         // Update to MyEchoDevices constants
-        MyEchoDevices.EV.name = evName;
-        MyEchoDevices.BATTERY.name = batteryName;
-        MyEchoDevices.SOLAR.name = solarName;
-        MyEchoDevices.LIGHT.name = lightName;
+        MyEchoDevices.loadConfig(nameConfig);
     }
 
 }

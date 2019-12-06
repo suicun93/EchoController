@@ -6,9 +6,9 @@
 package Main;
 
 import Common.Convert;
-import Common.MyEchoDevices;
-import Common.OperationStatus;
-import Common.OperationMode;
+import Model.MyEchoDevices;
+import Model.OperationStatus;
+import Model.OperationMode;
 import com.sonycsl.echo.Echo;
 import com.sonycsl.echo.EchoProperty;
 import com.sonycsl.echo.eoj.EchoObject;
@@ -83,9 +83,11 @@ public class EchoController {
             @Override
             public void onNewElectricVehicle(ElectricVehicle ev) {
                 super.onNewElectricVehicle(ev);
-                MyEchoDevices device = MyEchoDevices.EV;
                 System.out.println("\t   Device = " + ev);
+
                 // Setup
+                MyEchoDevices device = MyEchoDevices.EV;
+                device.address = ev.getNode().getAddressStr();
                 ev.setReceiver(new ElectricVehicle.Receiver() {
                     @Override
                     protected void onGetOperationStatus(EchoObject eoj, short tid, byte esv, EchoProperty property, boolean success) {
@@ -130,11 +132,12 @@ public class EchoController {
 
             @Override
             public void onNewBattery(Battery battery) {
-                super.onNewBattery(battery); //To change body of generated methods, choose Tools | Templates.
-
-                MyEchoDevices device = MyEchoDevices.BATTERY;
+                super.onNewBattery(battery);
                 System.out.println("\t   Device = " + battery);
+
                 // Set up
+                MyEchoDevices device = MyEchoDevices.BATTERY;
+                device.address = battery.getNode().getAddressStr();
                 battery.setReceiver(new Battery.Receiver() {
                     @Override
                     protected void onGetOperationStatus(EchoObject eoj, short tid, byte esv, EchoProperty property, boolean success) {
@@ -180,9 +183,11 @@ public class EchoController {
             @Override
             public void onNewHouseholdSolarPowerGeneration(HouseholdSolarPowerGeneration solar) {
                 super.onNewHouseholdSolarPowerGeneration(solar); //To change body of generated methods, choose Tools | Templates.
-                MyEchoDevices device = MyEchoDevices.SOLAR;
                 System.out.println("\t   Device = " + solar);
+
                 // Set up
+                MyEchoDevices device = MyEchoDevices.SOLAR;
+                device.address = solar.getNode().getAddressStr();
                 solar.setReceiver(new HouseholdSolarPowerGeneration.Receiver() {
                     @Override
                     protected void onGetOperationStatus(EchoObject eoj, short tid, byte esv, EchoProperty property, boolean success) {
@@ -216,9 +221,11 @@ public class EchoController {
             @Override
             public void onNewGeneralLighting(GeneralLighting light) {
                 super.onNewGeneralLighting(light); //To change body of generated methods, choose Tools | Templates.
-                MyEchoDevices device = MyEchoDevices.LIGHT;
                 System.out.println("\t   Device = " + light);
+
                 // Set up
+                MyEchoDevices device = MyEchoDevices.LIGHT;
+                device.address = light.getNode().getAddressStr();
                 light.setReceiver(new GeneralLighting.Receiver() {
                     @Override
                     protected void onGetOperationStatus(EchoObject eoj, short tid, byte esv, EchoProperty property, boolean success) {

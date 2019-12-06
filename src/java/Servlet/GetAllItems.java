@@ -6,10 +6,8 @@
 package Servlet;
 
 import Common.Config;
-import Common.MyEchoDevices;
-import static Common.MyEchoDevices.UNKNOWN;
-import static Main.EchoController.listDevice;
-import static Main.EchoController.startController;
+import Model.MyEchoDevices;
+import Main.EchoController;
 import com.sonycsl.echo.eoj.device.DeviceObject;
 
 import java.io.IOException;
@@ -23,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author hoang-trung-duc
  */
-public class GetItemAvailable extends HttpServlet {
+public class GetAllItems extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,23 +41,23 @@ public class GetItemAvailable extends HttpServlet {
 
             // get Param
             out = response.getWriter();
-            startController();
+            EchoController.startController();
 
             // Load config
-            Config.updateDeviceNickname();
+            Config.updateDeviceName();
 
             StringBuilder responseString = new StringBuilder("{ \n"
                     + "   \"success\":\"OK\",\n");
             responseString.append("\"devices\":{\n");
-            if (!listDevice().isEmpty()) {
-                listDevice().forEach((DeviceObject deviceObject) -> {
+            if (!EchoController.listDevice().isEmpty()) {
+                EchoController.listDevice().forEach((DeviceObject deviceObject) -> {
                     MyEchoDevices device = MyEchoDevices.from(deviceObject);
-                    if (device != UNKNOWN) {
+                    if (device != MyEchoDevices.UNKNOWN) {
                         responseString.append(device).append("\n");
                         responseString.append(",\n");
                     } else {
-                        responseString.append("\"" + UNKNOWN.type + "\":{ \n"
-                                + "         \"name\":\"" + UNKNOWN.name + "\",\n"
+                        responseString.append("\"" + MyEchoDevices.UNKNOWN.type + "\":{ \n"
+                                + "         \"name\":\"" + MyEchoDevices.UNKNOWN.name + "\",\n"
                                 + "         \"eoj\":\"" + String.format("0x%04x", deviceObject.getEchoClassCode()) + "\",\n"
                                 + "         \"macAdd\":\"" + deviceObject.getNode().getAddressStr() + "\"\n"
                                 + "      }\n").append("\n");
@@ -75,7 +73,7 @@ public class GetItemAvailable extends HttpServlet {
             out.print(responseString.toString());
 
         } catch (IOException ex) {
-            System.out.println(GetItemAvailable.class.getName() + " " + ex.getMessage());
+            System.out.println(GetAllItems.class.getName() + " " + ex.getMessage());
             if (out != null) {
                 out.print("{\n"
                         + "\"success\":\"" + ex.getMessage() + "\"\n"
