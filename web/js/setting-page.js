@@ -2,7 +2,7 @@ function setName(device) {
     var name = $("#" + device + "-name").val();
     $.ajax({
         type: "POST",
-        url: "http://192.168.52.2:8080/Collector/SetName",
+        url: "SetName",
         data: device + "," + name,
         contentType: "application/x-www-form-urlencoded;charset=utf-8",
         dataType: "text",

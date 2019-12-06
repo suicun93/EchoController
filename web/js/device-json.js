@@ -6,7 +6,7 @@ if(isDisplay){
 function getAvailableItem() {
     $.ajax({
         type: "POST",
-        url: "http://192.168.52.2:8080/Collector/GetItemAvailable",
+        url: "GetItemAvailable",
         data: "",
         dataType: "json",
         success: function (response) {
