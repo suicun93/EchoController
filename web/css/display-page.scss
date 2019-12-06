@@ -23,11 +23,9 @@ $device-info-color:#f16953;
     }
 }
 .device-light{
-    position: relative;
+    display: flex;
     .device{
-        position: absolute;
-        bottom: 0.75rem;
-        right: 0.75rem;
+        align-self: flex-end;
     }
 }
 .device{

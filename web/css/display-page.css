@@ -14,11 +14,9 @@
     color: #f16953; }
 
 .device-light {
-  position: relative; }
+  display: flex; }
   .device-light .device {
-    position: absolute;
-    bottom: 0.75rem;
-    right: 0.75rem; }
+    align-self: flex-end; }
 
 .device {
   background: #f9f9f9e5;
