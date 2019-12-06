@@ -6,7 +6,7 @@
 package Servlet;
 
 import Common.Config;
-import Common.MyEchoDevices;
+import Model.MyEchoDevices;
 import static Servlet.Time.getParam;
 import java.io.IOException;
 import java.io.PrintWriter;
