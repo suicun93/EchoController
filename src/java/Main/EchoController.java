@@ -6,7 +6,11 @@
 package Main;
 
 import Common.Convert;
-import Model.MyEchoDevices;
+import static Model.MyEchoDevices.EV;
+import static Model.MyEchoDevices.BATTERY;
+import static Model.MyEchoDevices.SOLAR;
+import static Model.MyEchoDevices.LIGHT;
+
 import Model.OperationStatus;
 import Model.OperationMode;
 import com.sonycsl.echo.Echo;
@@ -86,16 +90,15 @@ public class EchoController {
                 System.out.println("\t   Device = " + ev);
 
                 // Setup
-                MyEchoDevices device = MyEchoDevices.EV;
-                device.address = ev.getNode().getAddressStr();
+                EV.address = ev.getNode().getAddressStr();
                 ev.setReceiver(new ElectricVehicle.Receiver() {
                     @Override
                     protected void onGetOperationStatus(EchoObject eoj, short tid, byte esv, EchoProperty property, boolean success) {
                         super.onGetOperationStatus(eoj, tid, esv, property, success); //To change body of generated methods, choose Tools | Templates.
                         if (!success) {
-                            System.out.println("onGetProperty " + device.name() + " Failed: EPC = " + Convert.byteToHex(property.epc));
+                            System.out.println("onGetProperty " + EV.name() + " Failed: EPC = " + Convert.byteToHex(property.epc));
                         } else {
-                            device.operationStatus = OperationStatus.from(property.edt[0]);
+                            EV.operationStatus = OperationStatus.from(property.edt[0]);
                         }
                     }
 
@@ -103,9 +106,9 @@ public class EchoController {
                     protected void onGetOperationModeSetting(EchoObject eoj, short tid, byte esv, EchoProperty property, boolean success) {
                         super.onGetOperationModeSetting(eoj, tid, esv, property, success); //To change body of generated methods, choose Tools | Templates.
                         if (!success) {
-                            System.out.println("onGetProperty " + device.name() + " Failed: EPC = " + Convert.byteToHex(property.epc));
+                            System.out.println("onGetProperty " + EV.name() + " Failed: EPC = " + Convert.byteToHex(property.epc));
                         } else {
-                            device.operationMode = OperationMode.from(property.edt[0]);
+                            EV.operationMode = OperationMode.from(property.edt[0]);
                         }
                     }
 
@@ -113,9 +116,9 @@ public class EchoController {
                     protected void onGetMeasuredInstantaneousChargeDischargeElectricEnergy(EchoObject eoj, short tid, byte esv, EchoProperty property, boolean success) {
                         super.onGetMeasuredInstantaneousChargeDischargeElectricEnergy(eoj, tid, esv, property, success); //To change body of generated methods, choose Tools | Templates.
                         if (!success) {
-                            System.out.println("onGetProperty " + device.name() + " Failed: EPC = " + Convert.byteToHex(property.epc));
+                            System.out.println("onGetProperty " + EV.name() + " Failed: EPC = " + Convert.byteToHex(property.epc));
                         } else {
-                            device.d3 = Convert.byteArrayToInt(property.edt);
+                            EV.d3 = Convert.byteArrayToInt(property.edt);
                         }
                     }
 
@@ -126,7 +129,7 @@ public class EchoController {
                     ev.get().reqGetOperationModeSetting().send();
                     ev.get().reqGetMeasuredInstantaneousChargeDischargeElectricEnergy().send();
                 } catch (IOException e) {
-                    System.out.println("Get Property " + device.name() + " Failed: " + e.getMessage());
+                    System.out.println("Get Property " + EV.name() + " Failed: " + e.getMessage());
                 }
             }
 
@@ -136,16 +139,15 @@ public class EchoController {
                 System.out.println("\t   Device = " + battery);
 
                 // Set up
-                MyEchoDevices device = MyEchoDevices.BATTERY;
-                device.address = battery.getNode().getAddressStr();
+                BATTERY.address = battery.getNode().getAddressStr();
                 battery.setReceiver(new Battery.Receiver() {
                     @Override
                     protected void onGetOperationStatus(EchoObject eoj, short tid, byte esv, EchoProperty property, boolean success) {
                         super.onGetOperationStatus(eoj, tid, esv, property, success); //To change body of generated methods, choose Tools | Templates.
                         if (!success) {
-                            System.out.println("onGetProperty " + device.name() + " Failed: EPC = " + Convert.byteToHex(property.epc));
+                            System.out.println("onGetProperty " + BATTERY.name() + " Failed: EPC = " + Convert.byteToHex(property.epc));
                         } else {
-                            device.operationStatus = OperationStatus.from(property.edt[0]);
+                            BATTERY.operationStatus = OperationStatus.from(property.edt[0]);
                         }
                     }
 
@@ -153,9 +155,9 @@ public class EchoController {
                     protected void onGetOperationModeSetting(EchoObject eoj, short tid, byte esv, EchoProperty property, boolean success) {
                         super.onGetOperationModeSetting(eoj, tid, esv, property, success); //To change body of generated methods, choose Tools | Templates.
                         if (!success) {
-                            System.out.println("onGetProperty " + device.name() + " Failed: EPC = " + Convert.byteToHex(property.epc));
+                            System.out.println("onGetProperty " + BATTERY.name() + " Failed: EPC = " + Convert.byteToHex(property.epc));
                         } else {
-                            device.operationMode = OperationMode.from(property.edt[0]);
+                            BATTERY.operationMode = OperationMode.from(property.edt[0]);
                         }
                     }
 
@@ -163,9 +165,9 @@ public class EchoController {
                     protected void onGetMeasuredInstantaneousChargeDischargeElectricEnergy(EchoObject eoj, short tid, byte esv, EchoProperty property, boolean success) {
                         super.onGetMeasuredInstantaneousChargeDischargeElectricEnergy(eoj, tid, esv, property, success); //To change body of generated methods, choose Tools | Templates.
                         if (!success) {
-                            System.out.println("onGetProperty " + device.name() + " Failed: EPC = " + Convert.byteToHex(property.epc));
+                            System.out.println("onGetProperty " + BATTERY.name() + " Failed: EPC = " + Convert.byteToHex(property.epc));
                         } else {
-                            device.d3 = Convert.byteArrayToInt(property.edt);
+                            BATTERY.d3 = Convert.byteArrayToInt(property.edt);
                         }
                     }
 
@@ -176,7 +178,7 @@ public class EchoController {
                     battery.get().reqGetOperationModeSetting().send();
                     battery.get().reqGetMeasuredInstantaneousChargeDischargeElectricEnergy().send();
                 } catch (IOException e) {
-                    System.out.println("Get Property " + device.name() + " Failed: " + e.getMessage());
+                    System.out.println("Get Property " + BATTERY.name() + " Failed: " + e.getMessage());
                 }
             }
 
@@ -186,16 +188,15 @@ public class EchoController {
                 System.out.println("\t   Device = " + solar);
 
                 // Set up
-                MyEchoDevices device = MyEchoDevices.SOLAR;
-                device.address = solar.getNode().getAddressStr();
+                SOLAR.address = solar.getNode().getAddressStr();
                 solar.setReceiver(new HouseholdSolarPowerGeneration.Receiver() {
                     @Override
                     protected void onGetOperationStatus(EchoObject eoj, short tid, byte esv, EchoProperty property, boolean success) {
                         super.onGetOperationStatus(eoj, tid, esv, property, success); //To change body of generated methods, choose Tools | Templates.
                         if (!success) {
-                            System.out.println("onGetProperty " + device.name() + " Failed: EPC = " + Convert.byteToHex(property.epc));
+                            System.out.println("onGetProperty " + SOLAR.name() + " Failed: EPC = " + Convert.byteToHex(property.epc));
                         } else {
-                            device.operationStatus = OperationStatus.from(property.edt[0]);
+                            SOLAR.operationStatus = OperationStatus.from(property.edt[0]);
                         }
                     }
 
@@ -203,9 +204,9 @@ public class EchoController {
                     protected void onGetMeasuredInstantaneousAmountOfElectricityGenerated(EchoObject eoj, short tid, byte esv, EchoProperty property, boolean success) {
                         super.onGetMeasuredInstantaneousAmountOfElectricityGenerated(eoj, tid, esv, property, success); //To change body of generated methods, choose Tools | Templates.
                         if (!success) {
-                            System.out.println("onGetProperty " + device.name() + " Failed: EPC = " + Convert.byteToHex(property.epc));
+                            System.out.println("onGetProperty " + SOLAR.name() + " Failed: EPC = " + Convert.byteToHex(property.epc));
                         } else {
-                            device.e0 = Convert.byteArrayToInt(property.edt);
+                            SOLAR.e0 = Convert.byteArrayToInt(property.edt);
                         }
                     }
                 });
@@ -214,7 +215,7 @@ public class EchoController {
                     solar.get().reqGetOperationStatus().send();
                     solar.get().reqGetMeasuredInstantaneousAmountOfElectricityGenerated().send();
                 } catch (IOException e) {
-                    System.out.println("Get Property " + device.name() + " Failed: " + e.getMessage());
+                    System.out.println("Get Property " + SOLAR.name() + " Failed: " + e.getMessage());
                 }
             }
 
@@ -224,16 +225,15 @@ public class EchoController {
                 System.out.println("\t   Device = " + light);
 
                 // Set up
-                MyEchoDevices device = MyEchoDevices.LIGHT;
-                device.address = light.getNode().getAddressStr();
+                LIGHT.address = light.getNode().getAddressStr();
                 light.setReceiver(new GeneralLighting.Receiver() {
                     @Override
                     protected void onGetOperationStatus(EchoObject eoj, short tid, byte esv, EchoProperty property, boolean success) {
                         super.onGetOperationStatus(eoj, tid, esv, property, success); //To change body of generated methods, choose Tools | Templates.
                         if (!success) {
-                            System.out.println("onGetProperty " + device.name() + " Failed: EPC = " + Convert.byteToHex(property.epc));
+                            System.out.println("onGetProperty " + LIGHT.name() + " Failed: EPC = " + Convert.byteToHex(property.epc));
                         } else {
-                            device.operationStatus = OperationStatus.from(property.edt[0]);
+                            LIGHT.operationStatus = OperationStatus.from(property.edt[0]);
                         }
                     }
                 });
@@ -241,7 +241,7 @@ public class EchoController {
                 try {
                     light.get().reqGetOperationStatus().send();
                 } catch (IOException e) {
-                    System.out.println("Get Property " + device.name() + " Failed: " + e.getMessage());
+                    System.out.println("Get Property " + LIGHT.name() + " Failed: " + e.getMessage());
                 }
             }
         });
