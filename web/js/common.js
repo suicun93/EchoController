@@ -20,3 +20,6 @@ const SUCCESS_STATUS = "success";
 const FAIL_STATUS = "failed";
 const ON_STATUS = "ON";
 const OFF_STATUS = "OFF";
+const DISCHARGE_MODE = "Discharging";
+const CHARGE_MODE = "Charging";
+
