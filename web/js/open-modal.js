@@ -1,11 +1,9 @@
-
-// window.onload = deviceInit();
 function deviceInit() {
     function menuItemElement(device, name, img, alt, macAdd) {
         return "<div class='menu-item' onclick=\"showModal(\'" + device + "\'" + "," + "\'" + name + "\'" + "," + "\'" + macAdd + "\')\">" +
             "<div class='item-img'>" +
             "<img src='img/" + img + ".png' alt='" + alt + "'></div>" +
-            "<span class=''>" + name + "</span></div>"
+            "<span class='' id='"+ device + "-menu-name'>" + name + "</span></div>"
     };
     if (devices.hasOwnProperty("ev")) {
         let ev = devices.ev;
@@ -28,7 +26,7 @@ function deviceInit() {
 function showModal(modalToShow, deviceName) {
     let modal = $('#modal');
     function modalElement(modalToShow, deviceName) {
-        return "<h3>" + deviceName + "設定</h3>" +
+        return "<h3 id='device-name'>" + deviceName + "設定</h3>" +
             "<div class='right-menu-item-input'>" +
             "<label for='" + modalToShow + "-name'>名称:</label>" +
             "<input size='16' type='text' name='" + modalToShow + "-name' class='input is-rounded is-primary' id='" + modalToShow + "-name'></div>" +
