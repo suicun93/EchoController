@@ -46,28 +46,27 @@ public class GetAllItems extends HttpServlet {
             // Load config
             Config.updateDeviceName();
 
-            StringBuilder responseString = new StringBuilder("{ \n"
+            StringBuilder responseString = new StringBuilder("{\n"
                     + "   \"success\":\"OK\",\n");
-            responseString.append("\"devices\":{\n");
+            responseString.append("   \"devices\":{\n");
             if (!EchoController.listDevice().isEmpty()) {
                 EchoController.listDevice().forEach((DeviceObject deviceObject) -> {
                     MyEchoDevices device = MyEchoDevices.from(deviceObject);
                     if (device != MyEchoDevices.UNKNOWN) {
-                        responseString.append(device).append("\n");
-                        responseString.append(",\n");
+                        responseString.append(device);
                     } else {
-                        responseString.append("\"" + MyEchoDevices.UNKNOWN.type + "\":{ \n"
+                        responseString.append("      \"" + MyEchoDevices.UNKNOWN.type + "\":{ \n"
                                 + "         \"name\":\"" + MyEchoDevices.UNKNOWN.name + "\",\n"
                                 + "         \"eoj\":\"" + String.format("0x%04x", deviceObject.getEchoClassCode()) + "\",\n"
                                 + "         \"macAdd\":\"" + deviceObject.getNode().getAddressStr() + "\"\n"
-                                + "      }\n").append("\n");
-                        responseString.append(",\n");
+                                + "      }\n");
                     }
+                    responseString.append("      ,\n");
                 });
                 responseString.deleteCharAt(responseString.length() - 1);
                 responseString.deleteCharAt(responseString.length() - 1);
             }
-            responseString.append("}\n"
+            responseString.append("   }\n"
                     + "}");
 
             out.print(responseString.toString());

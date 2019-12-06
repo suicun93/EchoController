@@ -15,20 +15,20 @@ public enum MyEchoDevices {
     EV((short) 0x027E, "ev") {
         @Override
         public String toString() {
-            return "\"" + type + "\":{ \n"
+            return "      \"" + type + "\":{ \n"
                     + "         \"name\":\"" + name + "\",\n"
                     + "         \"eoj\":\"" + String.format("0x%04x", classcode) + "\",\n"
                     + "         \"macAdd\":\"" + address + "\",\n"
                     + "         \"status\" : \"" + operationStatus.name() + "\",\n"
                     + "         \"mode\" : \"" + operationMode.name() + "\",\n"
                     + "         \"d3\" : \"" + d3 + "\"\n"
-                    + "             }\n";
+                    + "      }\n";
         }
     },
     BATTERY((short) 0x027D, "battery") {
         @Override
         public String toString() {
-            return "\"" + type + "\":{ \n"
+            return "      \"" + type + "\":{ \n"
                     + "         \"name\":\"" + name + "\",\n"
                     + "         \"eoj\":\"" + String.format("0x%04x", classcode) + "\",\n"
                     + "         \"macAdd\":\"" + address + "\",\n"
@@ -41,7 +41,7 @@ public enum MyEchoDevices {
     SOLAR((short) 0x0279, "solar") {
         @Override
         public String toString() {
-            return "\"" + type + "\":{ \n"
+            return "      \"" + type + "\":{ \n"
                     + "         \"name\":\"" + name + "\",\n"
                     + "         \"eoj\":\"" + String.format("0x%04x", classcode) + "\",\n"
                     + "         \"macAdd\":\"" + address + "\",\n"
@@ -53,7 +53,7 @@ public enum MyEchoDevices {
     LIGHT((short) 0x0290, "light") {
         @Override
         public String toString() {
-            return "\"" + type + "\":{ \n"
+            return "      \"" + type + "\":{ \n"
                     + "         \"name\":\"" + name + "\",\n"
                     + "         \"eoj\":\"" + String.format("0x%04x", classcode) + "\",\n"
                     + "         \"macAdd\":\"" + address + "\",\n"
