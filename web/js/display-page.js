@@ -69,7 +69,25 @@ function initDevice() {
             default:
                 strMode = "";
         }
-        return "<div class='device'>" +
+        
+        if (device == "solar" || device == "light") {
+            return "<div class='" + device + "-" + strMode + "'>" +
+                "<div class='delay1'></div>" +
+                "<div class='delay2'></div>" +
+                "<div class='delay3'></div>" +
+                "<div class='delay4'></div>" +
+                "</div>" +
+                "<div class='device'>" +
+                "<div class='device-img-wrapper'>" +
+                "<img src='img/" + img + ".png' alt='" + name + "'>" +
+                "</div>" +
+                "<div class='device-info-wrapper'>" +
+                "<h4>" + name + "</h4>" +
+                "<h2>" + value + " Wh</h2>" +
+                "</div>" +
+                "</div>";
+        } else {
+            return "<div class='device'>" +
                 "<div class='device-img-wrapper'>" +
                 "<img src='img/" + img + ".png' alt='" + name + "'>" +
                 "</div>" +
@@ -84,6 +102,7 @@ function initDevice() {
                 "<div class='delay3'></div>" +
                 "<div class='delay4'></div>" +
                 "</div>";
+        }
     }
     function sumUp() {
         return parseInt(solarElectricAmount) + parseInt(evElectricAmount) + parseInt(batteryElectricAmount);
