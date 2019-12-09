@@ -34,6 +34,7 @@ public class StopController extends HttpServlet {
         response.setHeader("Access-Control-Allow-Methods", "POST");
         response.setHeader("Access-Control-Max-Age", "3600");
         response.setHeader("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+        response.getWriter().print("Stopped");
         EchoController.stopController();
     }
 
