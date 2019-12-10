@@ -47,7 +47,7 @@ public class EchoController {
         if (!Echo.isStarted()) {
             addEvent();
             Echo.start(NODE_PROFILE, new DeviceObject[]{CONTROLLER});
-            NodeProfile.informG().reqInformSelfNodeInstanceListS().send();
+            NodeProfile.informG().reqInformInstanceListNotification().send();
         }
     }
 
@@ -76,11 +76,11 @@ public class EchoController {
                     node.getNodeProfile().setReceiver(new NodeProfile.Receiver() {
                         @Override
                         protected void onGetInstanceListNotification(EchoObject eoj, short tid, byte esv, EchoProperty property, boolean success) {
-                            System.out.println("onGetInstanceListNotification Node = " + node.getNodeProfile());
-                            System.out.println("--------");
+                            //                            System.out.println("onGetInstanceListNotification Node = " + node.getNodeProfile());
+                            //                            System.out.println("--------");
                             super.onGetInstanceListNotification(eoj, tid, esv, property, success);
                             if (success) {
-                                if (property.edt[0] < node.getDevices().length) { // something stopped
+                                if (property.edt[0] < node.getDevices().length) { // Something stopped
                                     byte[] data = property.edt;
 
                                     // List Device Available
@@ -88,20 +88,22 @@ public class EchoController {
                                     for (int i = 0; i < data[0]; i++) {
                                         ByteBuffer bb = ByteBuffer.allocate(2);
                                         bb.order(ByteOrder.LITTLE_ENDIAN);
-                                        bb.put(data[i * 3 + 1]);
                                         bb.put(data[i * 3 + 2]);
+                                        bb.put(data[i * 3 + 1]);
                                         listDeviceAvailable[i] = bb.getShort(0);
+                                        //                                        System.out.println("listDeviceAvailable[" + i + "] = " + String.format("0x%04x", listDeviceAvailable[i]));
                                     }
 
                                     for (DeviceObject device : node.getDevices()) {
                                         boolean available = false;
-                                        for (short s : listDeviceAvailable) {
-                                            if (s == device.getEchoClassCode()) {
+                                        for (short echoClassCode : listDeviceAvailable) {
+                                            if (device.getEchoClassCode() == echoClassCode) {
                                                 available = true;
                                                 break;
                                             }
                                         }
                                         if (!available) {
+                                            System.out.println("Removing: " + String.format("0x%04x", device.getEchoClassCode()));
                                             node.removeDevice(device);
                                             device.removeNode();
                                             break;
