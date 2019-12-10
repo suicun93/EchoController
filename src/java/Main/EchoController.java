@@ -6,6 +6,7 @@
 package Main;
 
 import Common.Convert;
+import Model.MyEchoDevices;
 import static Model.MyEchoDevices.EV;
 import static Model.MyEchoDevices.BATTERY;
 import static Model.MyEchoDevices.SOLAR;
@@ -27,6 +28,8 @@ import com.sonycsl.echo.node.EchoNode;
 import com.sonycsl.echo.processing.defaults.DefaultController;
 import com.sonycsl.echo.processing.defaults.DefaultNodeProfile;
 import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -44,7 +47,7 @@ public class EchoController {
         if (!Echo.isStarted()) {
             addEvent();
             Echo.start(NODE_PROFILE, new DeviceObject[]{CONTROLLER});
-            NodeProfile.informG().reqInformInstanceListNotification().send();
+            NodeProfile.informG().reqInformSelfNodeInstanceListS().send();
         }
     }
 
@@ -61,27 +64,54 @@ public class EchoController {
         }
         return listDevice;
     }
+    public static boolean lan1 = false;
 
     // Add Event
     public static void addEvent() {
         Echo.addEventListener(new Echo.EventListener() {
-
             @Override
-            public void onNewNodeProfile(NodeProfile profile) {
-                System.out.println("Node = " + profile);
-                System.out.println("--------");
-                super.onNewNodeProfile(profile);
-                profile.setReceiver(new NodeProfile.Receiver() {
-                    @Override
-                    protected void onGetInstanceListNotification(EchoObject eoj, short tid, byte esv, EchoProperty property, boolean success) {
-                        super.onGetInstanceListNotification(eoj, tid, esv, property, success);
-                        for (EchoNode node : Echo.getNodes()) {
-                            if (!node.isSelfNode()) {
-                                Echo.removeOtherNode(node.getAddressStr());
+            public void onNewNode(EchoNode node) {
+                super.onNewNode(node);
+                if (!node.isSelfNode()) {
+                    node.getNodeProfile().setReceiver(new NodeProfile.Receiver() {
+                        @Override
+                        protected void onGetInstanceListNotification(EchoObject eoj, short tid, byte esv, EchoProperty property, boolean success) {
+                            System.out.println("onGetInstanceListNotification Node = " + node.getNodeProfile());
+                            System.out.println("--------");
+                            super.onGetInstanceListNotification(eoj, tid, esv, property, success);
+                            if (success) {
+                                if (property.edt[0] < node.getDevices().length) { // something stopped
+                                    byte[] data = property.edt;
+
+                                    // List Device Available
+                                    short[] listDeviceAvailable = new short[data[0]];
+                                    for (int i = 0; i < data[0]; i++) {
+                                        ByteBuffer bb = ByteBuffer.allocate(2);
+                                        bb.order(ByteOrder.LITTLE_ENDIAN);
+                                        bb.put(data[i * 3 + 1]);
+                                        bb.put(data[i * 3 + 2]);
+                                        listDeviceAvailable[i] = bb.getShort(0);
+                                    }
+
+                                    for (DeviceObject device : node.getDevices()) {
+                                        boolean available = false;
+                                        for (short s : listDeviceAvailable) {
+                                            if (s == device.getEchoClassCode()) {
+                                                available = true;
+                                                break;
+                                            }
+                                        }
+                                        if (!available) {
+                                            node.removeDevice(device);
+                                            device.removeNode();
+                                            break;
+                                        }
+                                    }
+                                }
                             }
                         }
-                    }
-                });
+                    });
+                }
             }
 
             @Override
