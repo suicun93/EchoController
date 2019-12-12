@@ -5,6 +5,7 @@
  */
 package Model;
 
+import Common.Key;
 import com.sonycsl.echo.eoj.device.DeviceObject;
 
 /**
@@ -16,12 +17,12 @@ public enum MyEchoDevices {
         @Override
         public String toString() {
             return "      \"" + type + "\":{ \n"
-                    + "         \"name\":\"" + name + "\",\n"
-                    + "         \"eoj\":\"" + String.format("0x%04x", classcode) + "\",\n"
-                    + "         \"macAdd\":\"" + address + "\",\n"
-                    + "         \"status\" : \"" + operationStatus.name() + "\",\n"
-                    + "         \"mode\" : \"" + operationMode.name() + "\",\n"
-                    + "         \"d3\" : \"" + d3 + "\"\n"
+                    + "         \"" + Key.Name + "\":\"" + name + "\",\n"
+                    + "         \"" + Key.EOJ + "\":\"" + String.format("0x%04x", classcode) + "\",\n"
+                    + "         \"" + Key.MacAddress + "\":\"" + address + "\",\n"
+                    + "         \"" + Key.OperationStatus + "\" : \"" + operationStatus.name() + "\",\n"
+                    + "         \"" + Key.OperationMode + "\" : \"" + operationMode.name() + "\",\n"
+                    + "         \"" + Key.ChargeDischargeElectricEnergy + "\" : \"" + d3 + "\"\n"
                     + "      }\n";
         }
     },
@@ -29,12 +30,12 @@ public enum MyEchoDevices {
         @Override
         public String toString() {
             return "      \"" + type + "\":{ \n"
-                    + "         \"name\":\"" + name + "\",\n"
-                    + "         \"eoj\":\"" + String.format("0x%04x", classcode) + "\",\n"
-                    + "         \"macAdd\":\"" + address + "\",\n"
-                    + "         \"status\" : \"" + operationStatus.name() + "\",\n"
-                    + "         \"mode\" : \"" + operationMode.name() + "\",\n"
-                    + "         \"d3\" : \"" + d3 + "\"\n"
+                    + "         \"" + Key.Name + "\":\"" + name + "\",\n"
+                    + "         \"" + Key.EOJ + "\":\"" + String.format("0x%04x", classcode) + "\",\n"
+                    + "         \"" + Key.MacAddress + "\":\"" + address + "\",\n"
+                    + "         \"" + Key.OperationStatus + "\" : \"" + operationStatus.name() + "\",\n"
+                    + "         \"" + Key.OperationMode + "\" : \"" + operationMode.name() + "\",\n"
+                    + "         \"" + Key.ChargeDischargeElectricEnergy + "\" : \"" + d3 + "\"\n"
                     + "      }\n";
         }
     },
@@ -42,11 +43,11 @@ public enum MyEchoDevices {
         @Override
         public String toString() {
             return "      \"" + type + "\":{ \n"
-                    + "         \"name\":\"" + name + "\",\n"
-                    + "         \"eoj\":\"" + String.format("0x%04x", classcode) + "\",\n"
-                    + "         \"macAdd\":\"" + address + "\",\n"
-                    + "         \"status\" : \"" + operationStatus.name() + "\",\n"
-                    + "         \"e0\" : \"" + e0 + "\"\n"
+                    + "         \"" + Key.Name + "\":\"" + name + "\",\n"
+                    + "         \"" + Key.EOJ + "\":\"" + String.format("0x%04x", classcode) + "\",\n"
+                    + "         \"" + Key.MacAddress + "\":\"" + address + "\",\n"
+                    + "         \"" + Key.OperationStatus + "\" : \"" + operationStatus.name() + "\",\n"
+                    + "         \"" + Key.AmountOfElectricityGenerated + "\" : \"" + e0 + "\"\n"
                     + "      }\n";
         }
     },
@@ -54,10 +55,10 @@ public enum MyEchoDevices {
         @Override
         public String toString() {
             return "      \"" + type + "\":{ \n"
-                    + "         \"name\":\"" + name + "\",\n"
-                    + "         \"eoj\":\"" + String.format("0x%04x", classcode) + "\",\n"
-                    + "         \"macAdd\":\"" + address + "\",\n"
-                    + "         \"status\" : \"" + operationStatus.name() + "\"\n"
+                    + "         \"" + Key.Name + "\":\"" + name + "\",\n"
+                    + "         \"" + Key.EOJ + "\":\"" + String.format("0x%04x", classcode) + "\",\n"
+                    + "         \"" + Key.MacAddress + "\":\"" + address + "\",\n"
+                    + "         \"" + Key.OperationStatus + "\" : \"" + operationStatus.name() + "\"\n"
                     + "      }\n";
         }
     },
