@@ -21,7 +21,7 @@ public class MyElectricVehicleReceiver extends ElectricVehicle.Receiver {
 
     @Override
     protected void onGetOperationStatus(EchoObject eoj, short tid, byte esv, EchoProperty property, boolean success) {
-        super.onGetOperationStatus(eoj, tid, esv, property, success); //To change body of generated methods, choose Tools | Templates.
+        super.onGetOperationStatus(eoj, tid, esv, property, success);
         if (!success) {
             System.out.println("onGetProperty " + EV.name() + " Failed: EPC = " + Convert.byteToHex(property.epc));
         } else {
@@ -31,7 +31,7 @@ public class MyElectricVehicleReceiver extends ElectricVehicle.Receiver {
 
     @Override
     protected void onGetOperationModeSetting(EchoObject eoj, short tid, byte esv, EchoProperty property, boolean success) {
-        super.onGetOperationModeSetting(eoj, tid, esv, property, success); //To change body of generated methods, choose Tools | Templates.
+        super.onGetOperationModeSetting(eoj, tid, esv, property, success);
         if (!success) {
             System.out.println("onGetProperty " + EV.name() + " Failed: EPC = " + Convert.byteToHex(property.epc));
         } else {
@@ -41,11 +41,32 @@ public class MyElectricVehicleReceiver extends ElectricVehicle.Receiver {
 
     @Override
     protected void onGetMeasuredInstantaneousChargeDischargeElectricEnergy(EchoObject eoj, short tid, byte esv, EchoProperty property, boolean success) {
-        super.onGetMeasuredInstantaneousChargeDischargeElectricEnergy(eoj, tid, esv, property, success); //To change body of generated methods, choose Tools | Templates.
+        super.onGetMeasuredInstantaneousChargeDischargeElectricEnergy(eoj, tid, esv, property, success);
         if (!success) {
             System.out.println("onGetProperty " + EV.name() + " Failed: EPC = " + Convert.byteToHex(property.epc));
         } else {
             EV.d3 = Convert.byteArrayToInt(property.edt);
         }
     }
+
+    @Override
+    protected void onGetRemainingBatteryCapacity1(EchoObject eoj, short tid, byte esv, EchoProperty property, boolean success) {
+        super.onGetRemainingBatteryCapacity1(eoj, tid, esv, property, success);
+        if (!success) {
+            System.out.println("onGetProperty " + EV.name() + " Failed: EPC = " + Convert.byteToHex(property.epc));
+        } else {
+            EV.e2 = Convert.byteArrayToInt(property.edt);
+        }
+    }
+
+    @Override
+    protected void onGetRemainingBatteryCapacity3(EchoObject eoj, short tid, byte esv, EchoProperty property, boolean success) {
+        super.onGetRemainingBatteryCapacity3(eoj, tid, esv, property, success);
+        if (!success) {
+            System.out.println("onGetProperty " + EV.name() + " Failed: EPC = " + Convert.byteToHex(property.epc));
+        } else {
+            EV.e4 = Convert.byteArrayToInt(property.edt);
+        }
+    }
+
 }

@@ -20,7 +20,7 @@ public class MySolarReceiver extends HouseholdSolarPowerGeneration.Receiver {
 
     @Override
     protected void onGetOperationStatus(EchoObject eoj, short tid, byte esv, EchoProperty property, boolean success) {
-        super.onGetOperationStatus(eoj, tid, esv, property, success); //To change body of generated methods, choose Tools | Templates.
+        super.onGetOperationStatus(eoj, tid, esv, property, success);
         if (!success) {
             System.out.println("onGetProperty " + SOLAR.name() + " Failed: EPC = " + Convert.byteToHex(property.epc));
         } else {
@@ -30,11 +30,21 @@ public class MySolarReceiver extends HouseholdSolarPowerGeneration.Receiver {
 
     @Override
     protected void onGetMeasuredInstantaneousAmountOfElectricityGenerated(EchoObject eoj, short tid, byte esv, EchoProperty property, boolean success) {
-        super.onGetMeasuredInstantaneousAmountOfElectricityGenerated(eoj, tid, esv, property, success); //To change body of generated methods, choose Tools | Templates.
+        super.onGetMeasuredInstantaneousAmountOfElectricityGenerated(eoj, tid, esv, property, success);
         if (!success) {
             System.out.println("onGetProperty " + SOLAR.name() + " Failed: EPC = " + Convert.byteToHex(property.epc));
         } else {
             SOLAR.e0 = Convert.byteArrayToInt(property.edt);
+        }
+    }
+
+    @Override
+    protected void onGetMeasuredCumulativeAmountOfElectricityGenerated(EchoObject eoj, short tid, byte esv, EchoProperty property, boolean success) {
+        super.onGetMeasuredCumulativeAmountOfElectricityGenerated(eoj, tid, esv, property, success);
+        if (!success) {
+            System.out.println("onGetProperty " + SOLAR.name() + " Failed: EPC = " + Convert.byteToHex(property.epc));
+        } else {
+            SOLAR.e1 = Convert.byteArrayToInt(property.edt);
         }
     }
 }

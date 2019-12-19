@@ -16,7 +16,10 @@ public enum Key {
     OperationStatus("status"),
     OperationMode("mode"),
     ChargeDischargeElectricEnergy("d3"),
-    AmountOfElectricityGenerated("e0");
+    InstantaneousAmountOfElectricityGenerated("e0"),
+    AmountOfElectricityGenerated("e1"),
+    RemainingElectric1("e2"),
+    RemainingElectric3("e4");
 
     private final String value;
 

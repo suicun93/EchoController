@@ -74,25 +74,6 @@ public class EchoController {
             }
 
             @Override
-            public void onNewElectricVehicle(ElectricVehicle ev) {
-                super.onNewElectricVehicle(ev);
-                System.out.println("\t   Device = " + ev);
-
-                // Setup
-                EV.address = ev.getNode().getAddressStr();
-                ev.setReceiver(new MyElectricVehicleReceiver());
-
-                // Fire signal to update information
-                try {
-                    ev.get().reqGetOperationStatus().send();
-                    ev.get().reqGetOperationModeSetting().send();
-                    ev.get().reqGetMeasuredInstantaneousChargeDischargeElectricEnergy().send();
-                } catch (IOException e) {
-                    System.out.println("Get Property " + EV.name() + " Failed: " + e.getMessage());
-                }
-            }
-
-            @Override
             public void onNewBattery(Battery battery) {
                 super.onNewBattery(battery);
                 System.out.println("\t   Device = " + battery);
@@ -106,8 +87,31 @@ public class EchoController {
                     battery.get().reqGetOperationStatus().send();
                     battery.get().reqGetOperationModeSetting().send();
                     battery.get().reqGetMeasuredInstantaneousChargeDischargeElectricEnergy().send();
+                    battery.get().reqGetRemainingStoredElectricity1().send(); // E2
+                    battery.get().reqGetRemainingStoredElectricity3().send(); // E4
                 } catch (IOException e) {
                     System.out.println("Get Property " + BATTERY.name() + " Failed: " + e.getMessage());
+                }
+            }
+
+            @Override
+            public void onNewElectricVehicle(ElectricVehicle ev) {
+                super.onNewElectricVehicle(ev);
+                System.out.println("\t   Device = " + ev);
+
+                // Setup
+                EV.address = ev.getNode().getAddressStr();
+                ev.setReceiver(new MyElectricVehicleReceiver());
+
+                // Fire signal to update information
+                try {
+                    ev.get().reqGetOperationStatus().send();
+                    ev.get().reqGetOperationModeSetting().send();
+                    ev.get().reqGetMeasuredInstantaneousChargeDischargeElectricEnergy().send();
+                    ev.get().reqGetRemainingBatteryCapacity1().send(); // E2
+                    ev.get().reqGetRemainingBatteryCapacity3().send(); // E4
+                } catch (IOException e) {
+                    System.out.println("Get Property " + EV.name() + " Failed: " + e.getMessage());
                 }
             }
 
@@ -124,6 +128,7 @@ public class EchoController {
                 try {
                     solar.get().reqGetOperationStatus().send();
                     solar.get().reqGetMeasuredInstantaneousAmountOfElectricityGenerated().send();
+                    solar.get().reqGetMeasuredCumulativeAmountOfElectricityGenerated().send(); // E1
                 } catch (IOException e) {
                     System.out.println("Get Property " + SOLAR.name() + " Failed: " + e.getMessage());
                 }

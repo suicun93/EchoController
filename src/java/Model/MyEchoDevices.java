@@ -22,7 +22,9 @@ public enum MyEchoDevices {
                     + "         \"" + Key.MacAddress + "\":\"" + address + "\",\n"
                     + "         \"" + Key.OperationStatus + "\" : \"" + operationStatus.name() + "\",\n"
                     + "         \"" + Key.OperationMode + "\" : \"" + operationMode.name() + "\",\n"
-                    + "         \"" + Key.ChargeDischargeElectricEnergy + "\" : \"" + d3 + "\"\n"
+                    + "         \"" + Key.ChargeDischargeElectricEnergy + "\" : \"" + d3 + "\",\n"
+                    + "         \"" + Key.RemainingElectric1 + "\" : \"" + e2 + "\",\n"
+                    + "         \"" + Key.RemainingElectric3 + "\" : \"" + e4 + "\"\n"
                     + "      }\n";
         }
     },
@@ -35,7 +37,9 @@ public enum MyEchoDevices {
                     + "         \"" + Key.MacAddress + "\":\"" + address + "\",\n"
                     + "         \"" + Key.OperationStatus + "\" : \"" + operationStatus.name() + "\",\n"
                     + "         \"" + Key.OperationMode + "\" : \"" + operationMode.name() + "\",\n"
-                    + "         \"" + Key.ChargeDischargeElectricEnergy + "\" : \"" + d3 + "\"\n"
+                    + "         \"" + Key.ChargeDischargeElectricEnergy + "\" : \"" + d3 + "\",\n"
+                    + "         \"" + Key.RemainingElectric1 + "\" : \"" + e2 + "\",\n"
+                    + "         \"" + Key.RemainingElectric3 + "\" : \"" + e4 + "\"\n"
                     + "      }\n";
         }
     },
@@ -47,7 +51,8 @@ public enum MyEchoDevices {
                     + "         \"" + Key.EOJ + "\":\"" + String.format("0x%04x", classcode) + "\",\n"
                     + "         \"" + Key.MacAddress + "\":\"" + address + "\",\n"
                     + "         \"" + Key.OperationStatus + "\" : \"" + operationStatus.name() + "\",\n"
-                    + "         \"" + Key.AmountOfElectricityGenerated + "\" : \"" + e0 + "\"\n"
+                    + "         \"" + Key.InstantaneousAmountOfElectricityGenerated + "\" : \"" + e0 + "\",\n"
+                    + "         \"" + Key.AmountOfElectricityGenerated + "\" : \"" + e1 + "\"\n"
                     + "      }\n";
         }
     },
@@ -93,8 +98,8 @@ public enum MyEchoDevices {
     public String address;
     public OperationStatus operationStatus = OperationStatus.OFF;
     public OperationMode operationMode = OperationMode.Other;
-    public int d3;
-    public int e0;
+    public int d3, e2, e4;
+    public int e0, e1;
 
     private MyEchoDevices(short classcode, String type) {
         this.classcode = classcode;

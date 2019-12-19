@@ -9,9 +9,14 @@ import Common.Config;
 import Model.MyEchoDevices;
 import Main.EchoController;
 import com.sonycsl.echo.eoj.device.DeviceObject;
+import com.sonycsl.echo.eoj.device.housingfacilities.Battery;
+import com.sonycsl.echo.eoj.device.housingfacilities.ElectricVehicle;
+import com.sonycsl.echo.eoj.device.housingfacilities.HouseholdSolarPowerGeneration;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -53,6 +58,32 @@ public class GetAllItems extends HttpServlet {
                 EchoController.listDevice().forEach((DeviceObject deviceObject) -> {
                     MyEchoDevices device = MyEchoDevices.from(deviceObject);
                     if (device != MyEchoDevices.UNKNOWN) {
+
+                        try {
+                            switch (device) {
+                                case BATTERY:
+                                    ((Battery) deviceObject).get().reqGetRemainingStoredElectricity1().send(); // E2
+                                    ((Battery) deviceObject).get().reqGetRemainingStoredElectricity3().send(); // E4
+                                    Thread.sleep(100); // Wait a bit for information reveiced.
+                                    break;
+                                case EV:
+                                    ((ElectricVehicle) deviceObject).get().reqGetRemainingBatteryCapacity1().send(); // E2
+                                    ((ElectricVehicle) deviceObject).get().reqGetRemainingBatteryCapacity3().send(); // E4
+                                    Thread.sleep(100); // Wait a bit for information reveiced.
+                                    break;
+                                case SOLAR:
+                                    ((HouseholdSolarPowerGeneration) deviceObject).get().reqGetMeasuredCumulativeAmountOfElectricityGenerated().send(); // E1
+                                    Thread.sleep(100); // Wait a bit for information reveiced.
+                                    break;
+                                default:
+                                    break;
+                            }
+                        } catch (IOException e) {
+                            System.out.println("Get information failed: " + device.name() + ", " + e.getMessage());
+                        } catch (InterruptedException ex) {
+                            System.out.println("");
+                        }
+                        // Write to response
                         responseString.append(device);
                     } else {
                         responseString.append("      \"" + MyEchoDevices.UNKNOWN.type + "\":{ \n"

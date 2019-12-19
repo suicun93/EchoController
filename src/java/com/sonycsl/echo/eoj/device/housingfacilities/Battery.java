@@ -36,7 +36,7 @@ public abstract class Battery extends DeviceObject {
 	public static final byte EPC_CHARGING_DISCHAR_GING_AMOUNT_SETTING2 = (byte)0xE1;
 	public static final byte EPC_REMAINING_STORED_ELECTRICITY1 = (byte)0xE2;
 	public static final byte EPC_REMAINING_STORED_ELECTRICITY2 = (byte)0xE3;
-	public static final byte EPC_REMAINING_STORED_ELECTRICITY3_BATTERY_STATE_OF_HEALTH = (byte)0xE4;
+	public static final byte EPC_REMAINING_STORED_ELECTRICITY3 = (byte)0xE4;
 	public static final byte EPC_BATTERY_TYPE = (byte)0xE6;
 	public static final byte EPC_CHARGING_AMOUNT_SETTING1 = (byte)0xE7;
 	public static final byte EPC_DISCHARGING_AMOUNT_SETTING1 = (byte)0xE8;
@@ -60,7 +60,7 @@ public abstract class Battery extends DeviceObject {
 		addGetProperty(EPC_OPERATION_MODE_SETTING);
 		addGetProperty(EPC_REMAINING_STORED_ELECTRICITY1);
 		addGetProperty(EPC_REMAINING_STORED_ELECTRICITY2);
-		addGetProperty(EPC_REMAINING_STORED_ELECTRICITY3_BATTERY_STATE_OF_HEALTH);
+		addGetProperty(EPC_REMAINING_STORED_ELECTRICITY3);
 		addGetProperty(EPC_BATTERY_TYPE);
 	}
 
@@ -2237,7 +2237,7 @@ Minimum/maxim um discharging power (Independent)<br>
 		case EPC_CHARGING_DISCHAR_GING_AMOUNT_SETTING2 : return getChargingDischarGingAmountSetting2();
 		case EPC_REMAINING_STORED_ELECTRICITY1 : return getRemainingStoredElectricity1();
 		case EPC_REMAINING_STORED_ELECTRICITY2 : return getRemainingStoredElectricity2();
-		case EPC_REMAINING_STORED_ELECTRICITY3_BATTERY_STATE_OF_HEALTH : return getRemainingStoredElectricity3BatteryStateOfHealth();
+		case EPC_REMAINING_STORED_ELECTRICITY3 : return getRemainingStoredElectricity3BatteryStateOfHealth();
 		case EPC_BATTERY_TYPE : return getBatteryType();
 		case EPC_CHARGING_AMOUNT_SETTING1 : return getChargingAmountSetting1();
 		case EPC_DISCHARGING_AMOUNT_SETTING1 : return getDischargingAmountSetting1();
@@ -2282,7 +2282,7 @@ Minimum/maxim um discharging power (Independent)<br>
 		case EPC_CHARGING_DISCHAR_GING_AMOUNT_SETTING2 : return isValidChargingDischarGingAmountSetting2(property.edt);
 		case EPC_REMAINING_STORED_ELECTRICITY1 : return isValidRemainingStoredElectricity1(property.edt);
 		case EPC_REMAINING_STORED_ELECTRICITY2 : return isValidRemainingStoredElectricity2(property.edt);
-		case EPC_REMAINING_STORED_ELECTRICITY3_BATTERY_STATE_OF_HEALTH : return isValidRemainingStoredElectricity3BatteryStateOfHealth(property.edt);
+		case EPC_REMAINING_STORED_ELECTRICITY3 : return isValidRemainingStoredElectricity3BatteryStateOfHealth(property.edt);
 		case EPC_BATTERY_TYPE : return isValidBatteryType(property.edt);
 		case EPC_CHARGING_AMOUNT_SETTING1 : return isValidChargingAmountSetting1(property.edt);
 		case EPC_DISCHARGING_AMOUNT_SETTING1 : return isValidDischargingAmountSetting1(property.edt);
@@ -2457,7 +2457,7 @@ Minimum/maxim um discharging power (Independent)<br>
 			case EPC_REMAINING_STORED_ELECTRICITY2 : 
 				onGetRemainingStoredElectricity2(eoj, tid, esv, property, success);
 				return true;
-			case EPC_REMAINING_STORED_ELECTRICITY3_BATTERY_STATE_OF_HEALTH : 
+			case EPC_REMAINING_STORED_ELECTRICITY3 : 
 				onGetRemainingStoredElectricity3BatteryStateOfHealth(eoj, tid, esv, property, success);
 				return true;
 			case EPC_BATTERY_TYPE : 
@@ -4741,8 +4741,8 @@ Minimum/maxim um discharging power (Independent)<br>
 		 * Set - undefined<br>
 		 * Get - mandatory<br>
 		 */
-		public Getter reqGetRemainingStoredElectricity3BatteryStateOfHealth() {
-			reqGetProperty(EPC_REMAINING_STORED_ELECTRICITY3_BATTERY_STATE_OF_HEALTH);
+		public Getter reqGetRemainingStoredElectricity3() {
+			reqGetProperty(EPC_REMAINING_STORED_ELECTRICITY3);
 			return this;
 		}
 		/**
@@ -5751,7 +5751,7 @@ Minimum/maxim um discharging power (Independent)<br>
 		 * Get - mandatory<br>
 		 */
 		public Informer reqInformRemainingStoredElectricity3BatteryStateOfHealth() {
-			reqInformProperty(EPC_REMAINING_STORED_ELECTRICITY3_BATTERY_STATE_OF_HEALTH);
+			reqInformProperty(EPC_REMAINING_STORED_ELECTRICITY3);
 			return this;
 		}
 		/**
