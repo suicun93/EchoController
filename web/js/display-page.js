@@ -42,7 +42,7 @@ function initDevice() {
         let solar = devices.solar;
         if (solar.status == ON_STATUS) {
             solarElectricAmount = solar.e0;
-            $(".device-solar").html(deviceElem("solar", solar.name, "sun", solar.e0 + " Wh", 0, solar.e1 + " Wh", CHARGE_MODE));
+            $(".device-solar").html(deviceElem("solar", solar.name, "sun", solar.e0 + " W", 0, solar.e1 + " Wh", CHARGE_MODE));
         } else {
             $(".device-solar").html(deviceElem("solar", solar.name, "sun", 0 + " W", 0, solar.e1 + " Wh", ""));
         }
@@ -55,7 +55,7 @@ function initDevice() {
     } else {
         $(".device-light").html("");
     }
-    $("#sum-up").html(sumUp() + " Wh");
+    $("#sum-up").html(sumUp() + " W");
 
     function deviceElem(device, name, img, instValue, remain, mesureValue, mode) {
         let strMode = "";
