@@ -22,17 +22,22 @@
   background: #f9f9f9e5;
   display: flex;
   border-radius: 5px;
-  width: 100%; }
+  width: 100%;}
   .device .device-img-wrapper {
     width: 40%;
-    padding: 1rem; }
+    padding: 1rem;
+    text-align: center; }
+    .device .device-img-wrapper .remain-energy {
+      font-size: 20px; }
   .device .device-info-wrapper {
     width: 60%;
-    padding: 1rem; }
+    padding: 1rem;
+    text-align: center; }
     .device .device-info-wrapper h4 {
       text-align: center; }
-    .device .device-info-wrapper h2 {
-      text-align: center;
+    .device .device-info-wrapper div > h5 {
+      color: #f16953; }
+    .device .device-info-wrapper div > h2{
       color: #f16953; }
 
 .bottom-devices {

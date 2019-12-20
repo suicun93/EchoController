@@ -36,17 +36,22 @@ $device-info-color:#f16953;
     .device-img-wrapper{
         width: 40%;
         padding: 1rem;
+        text-align: center;
+        .remain-energy{
+            font-size: 20px;
+        }
     }
     .device-info-wrapper{
         width: 60%;
         padding: 1rem;
+        text-align: center;
         h4{
             text-align: center;
         }
         h2{
-            text-align: center;
             color: $device-info-color;
         }
+        
     }
 }
 .bottom-devices{

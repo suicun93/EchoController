@@ -1,7 +1,7 @@
 var devices = "";
 getAvailableItem();
 if(isDisplay){
-    setInterval("getAvailableItem()",10000);
+    setInterval("getAvailableItem()",5400);
 }
 function getAvailableItem() {
     $.ajax({
