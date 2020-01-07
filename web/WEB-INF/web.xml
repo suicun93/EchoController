@@ -5,6 +5,10 @@
         <servlet-name>Time</servlet-name>
         <servlet-class>Servlet.Time</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SetEPC</servlet-name>
+        <servlet-class>Servlet.SetEPC</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Time</servlet-name>
         <url-pattern>/Time</url-pattern>
@@ -41,6 +45,10 @@
         収集装置
     </display-name>
     <!--Session Config-->
+    <servlet-mapping>
+        <servlet-name>SetEPC</servlet-name>
+        <url-pattern>/SetEPC</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             -1
