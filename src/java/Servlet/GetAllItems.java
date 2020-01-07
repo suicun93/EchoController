@@ -15,8 +15,6 @@ import com.sonycsl.echo.eoj.device.housingfacilities.HouseholdSolarPowerGenerati
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -43,8 +41,6 @@ public class GetAllItems extends HttpServlet {
         response.setHeader("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
         PrintWriter out = null;
         try {
-
-            // get Param
             out = response.getWriter();
             EchoController.startController();
 
@@ -58,7 +54,6 @@ public class GetAllItems extends HttpServlet {
                 EchoController.listDevice().forEach((DeviceObject deviceObject) -> {
                     MyEchoDevices device = MyEchoDevices.from(deviceObject);
                     if (device != MyEchoDevices.UNKNOWN) {
-
                         try {
                             switch (device) {
                                 case BATTERY:
