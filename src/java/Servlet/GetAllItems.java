@@ -8,6 +8,9 @@ package Servlet;
 import Common.Config;
 import Model.MyEchoDevices;
 import Main.EchoController;
+import static Model.MyEchoDevices.BATTERY;
+import static Model.MyEchoDevices.EV;
+import static Model.MyEchoDevices.SOLAR;
 import com.sonycsl.echo.eoj.device.DeviceObject;
 import com.sonycsl.echo.eoj.device.housingfacilities.Battery;
 import com.sonycsl.echo.eoj.device.housingfacilities.ElectricVehicle;
@@ -57,18 +60,26 @@ public class GetAllItems extends HttpServlet {
                         try {
                             switch (device) {
                                 case BATTERY:
-                                    ((Battery) deviceObject).get().reqGetRemainingStoredElectricity1().send(); // E2
-                                    ((Battery) deviceObject).get().reqGetRemainingStoredElectricity3().send(); // E4
-                                    Thread.sleep(100); // Wait a bit for information reveiced.
+                                    synchronized (BATTERY) {
+                                        ((Battery) deviceObject).get().reqGetRemainingStoredElectricity1().send(); // E2
+                                        BATTERY.wait();
+                                        ((Battery) deviceObject).get().reqGetRemainingStoredElectricity3().send(); // E4
+                                        BATTERY.wait();
+                                    }
                                     break;
                                 case EV:
-                                    ((ElectricVehicle) deviceObject).get().reqGetRemainingBatteryCapacity1().send(); // E2
-                                    ((ElectricVehicle) deviceObject).get().reqGetRemainingBatteryCapacity3().send(); // E4
-                                    Thread.sleep(100); // Wait a bit for information reveiced.
+                                    synchronized (EV) {
+                                        ((ElectricVehicle) deviceObject).get().reqGetRemainingBatteryCapacity1().send(); // E2
+                                        EV.wait();
+                                        ((ElectricVehicle) deviceObject).get().reqGetRemainingBatteryCapacity3().send(); // E4
+                                        EV.wait();
+                                    }
                                     break;
                                 case SOLAR:
                                     ((HouseholdSolarPowerGeneration) deviceObject).get().reqGetMeasuredCumulativeAmountOfElectricityGenerated().send(); // E1
-                                    Thread.sleep(100); // Wait a bit for information reveiced.
+                                    synchronized (SOLAR) {
+                                        SOLAR.wait();
+                                    }
                                     break;
                                 default:
                                     break;

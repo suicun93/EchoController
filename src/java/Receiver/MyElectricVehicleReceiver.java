@@ -51,22 +51,27 @@ public class MyElectricVehicleReceiver extends ElectricVehicle.Receiver {
 
     @Override
     protected void onGetRemainingBatteryCapacity1(EchoObject eoj, short tid, byte esv, EchoProperty property, boolean success) {
-        super.onGetRemainingBatteryCapacity1(eoj, tid, esv, property, success);
-        if (!success) {
-            System.out.println("onGetProperty " + EV.name() + " Failed: EPC = " + Convert.byteToHex(property.epc));
-        } else {
-            EV.e2 = Convert.byteArrayToInt(property.edt);
+        synchronized (EV) {
+            super.onGetRemainingBatteryCapacity1(eoj, tid, esv, property, success);
+            if (!success) {
+                System.out.println("onGetProperty " + EV.name() + " Failed: EPC = " + Convert.byteToHex(property.epc));
+            } else {
+                EV.e2 = Convert.byteArrayToInt(property.edt);
+            }
+            EV.notify();
         }
     }
 
     @Override
     protected void onGetRemainingBatteryCapacity3(EchoObject eoj, short tid, byte esv, EchoProperty property, boolean success) {
-        super.onGetRemainingBatteryCapacity3(eoj, tid, esv, property, success);
-        if (!success) {
-            System.out.println("onGetProperty " + EV.name() + " Failed: EPC = " + Convert.byteToHex(property.epc));
-        } else {
-            EV.e4 = Convert.byteArrayToInt(property.edt);
+        synchronized (EV) {
+            super.onGetRemainingBatteryCapacity3(eoj, tid, esv, property, success);
+            if (!success) {
+                System.out.println("onGetProperty " + EV.name() + " Failed: EPC = " + Convert.byteToHex(property.epc));
+            } else {
+                EV.e4 = Convert.byteArrayToInt(property.edt);
+            }
+            EV.notify();
         }
     }
-
 }

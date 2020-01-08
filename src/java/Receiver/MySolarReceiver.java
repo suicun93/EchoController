@@ -40,11 +40,15 @@ public class MySolarReceiver extends HouseholdSolarPowerGeneration.Receiver {
 
     @Override
     protected void onGetMeasuredCumulativeAmountOfElectricityGenerated(EchoObject eoj, short tid, byte esv, EchoProperty property, boolean success) {
-        super.onGetMeasuredCumulativeAmountOfElectricityGenerated(eoj, tid, esv, property, success);
-        if (!success) {
-            System.out.println("onGetProperty " + SOLAR.name() + " Failed: EPC = " + Convert.byteToHex(property.epc));
-        } else {
-            SOLAR.e1 = Convert.byteArrayToInt(property.edt);
+        synchronized (SOLAR) {
+            super.onGetMeasuredCumulativeAmountOfElectricityGenerated(eoj, tid, esv, property, success);
+            if (!success) {
+                System.out.println("onGetProperty " + SOLAR.name() + " Failed: EPC = " + Convert.byteToHex(property.epc));
+            } else {
+                SOLAR.e1 = Convert.byteArrayToInt(property.edt);
+            }
+            SOLAR.notify();
         }
+
     }
 }

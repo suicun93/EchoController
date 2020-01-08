@@ -21,7 +21,7 @@ public class MyBatteryReceiver extends Battery.Receiver {
 
     @Override
     protected void onGetOperationStatus(EchoObject eoj, short tid, byte esv, EchoProperty property, boolean success) {
-        super.onGetOperationStatus(eoj, tid, esv, property, success); //To change body of generated methods, choose Tools | Templates.
+        super.onGetOperationStatus(eoj, tid, esv, property, success);
         if (!success) {
             System.out.println("onGetProperty " + BATTERY.name() + " Failed: EPC = " + Convert.byteToHex(property.epc));
         } else {
@@ -51,21 +51,27 @@ public class MyBatteryReceiver extends Battery.Receiver {
 
     @Override
     protected void onGetRemainingStoredElectricity1(EchoObject eoj, short tid, byte esv, EchoProperty property, boolean success) {
-        super.onGetRemainingStoredElectricity1(eoj, tid, esv, property, success);
-        if (!success) {
-            System.out.println("onGetProperty " + BATTERY.name() + " Failed: EPC = " + Convert.byteToHex(property.epc));
-        } else {
-            BATTERY.e2 = Convert.byteArrayToInt(property.edt);
+        synchronized (BATTERY) {
+            super.onGetRemainingStoredElectricity1(eoj, tid, esv, property, success);
+            if (!success) {
+                System.out.println("onGetProperty " + BATTERY.name() + " Failed: EPC = " + Convert.byteToHex(property.epc));
+            } else {
+                BATTERY.e2 = Convert.byteArrayToInt(property.edt);
+            }
+            BATTERY.notify();
         }
     }
 
     @Override
-    protected void onGetRemainingStoredElectricity3BatteryStateOfHealth(EchoObject eoj, short tid, byte esv, EchoProperty property, boolean success) {
-        super.onGetRemainingStoredElectricity3BatteryStateOfHealth(eoj, tid, esv, property, success);
-        if (!success) {
-            System.out.println("onGetProperty " + BATTERY.name() + " Failed: EPC = " + Convert.byteToHex(property.epc));
-        } else {
-            BATTERY.e4 = Convert.byteArrayToInt(property.edt);
+    protected void onGetRemainingStoredElectricity3(EchoObject eoj, short tid, byte esv, EchoProperty property, boolean success) {
+        synchronized (BATTERY) {
+            super.onGetRemainingStoredElectricity3(eoj, tid, esv, property, success);
+            if (!success) {
+                System.out.println("onGetProperty " + BATTERY.name() + " Failed: EPC = " + Convert.byteToHex(property.epc));
+            } else {
+                BATTERY.e4 = Convert.byteArrayToInt(property.edt);
+            }
+            BATTERY.notify();
         }
     }
 

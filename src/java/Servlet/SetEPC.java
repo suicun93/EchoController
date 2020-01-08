@@ -85,21 +85,26 @@ public class SetEPC extends HttpServlet {
                     deviceObject.setReceiver(new DeviceObject.Receiver() {
                         @Override
                         protected boolean onSetProperty(EchoObject eoj, short tid, byte esv, EchoProperty property, boolean success) {
-                            boolean result = super.onSetProperty(eoj, tid, esv, property, success);
-                            if (result) {
-                                out.print("Success");
-                            } else {
-                                out.print("{\n"
-                                        + "\"Failed\":\"" + Convert.byteArrayToInt(property.edt) + "\"\n"
-                                        + "}");
+                            synchronized (out) {
+                                boolean result = super.onSetProperty(eoj, tid, esv, property, success);
+                                if (success) {
+                                    out.print("Success");
+                                } else {
+                                    out.print("{\n"
+                                            + "\"Failed\":\"" + "Wrong EPC,EDT" + "\"\n"
+                                            + "}");
+                                }
+                                out.notify();
+                                return result;
                             }
-                            return result;
                         }
                     });
                     // Set new EDT
                     deviceObject.set().reqSetProperty(EPC, EDT).send();
                     // Wait for response
-                    Thread.sleep(200);
+                    synchronized (out) {
+                        out.wait();
+                    }
                     // Restore old Receiver.
                     deviceObject.setReceiver(oldReceiver);
                     return;
