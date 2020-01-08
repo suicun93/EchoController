@@ -70,5 +70,6 @@
 <script src="js/open-modal.js"></script>
 <script src="js/device-json.js"></script>
 <script src="js/time.js"></script>
+<script src="js/set-epc.js"></script>
 
 </html>

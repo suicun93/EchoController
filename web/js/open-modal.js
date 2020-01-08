@@ -6,19 +6,19 @@ function deviceInit() {
             "<span class='' id='" + device + "-menu-name'>" + name + "</span></div>"
     };
     if (devices.hasOwnProperty("ev")) {
-        let ev = devices.ev;
+        ev = devices.ev;
         $('#device-menu').append(menuItemElement('ev', ev.name, 'car', 'Electric Vehicle', ev.macAdd));
     }
     if (devices.hasOwnProperty("battery")) {
-        let battery = devices.battery;
+        battery = devices.battery;
         $('#device-menu').append(menuItemElement('battery', battery.name, 'battery', 'Battery', battery.macAdd));
     }
     if (devices.hasOwnProperty("solar")) {
-        let solar = devices.solar;
+        solar = devices.solar;
         $('#device-menu').append(menuItemElement('solar', solar.name, 'sun', 'Solar Energy', solar.macAdd));
     }
     if (devices.hasOwnProperty("light")) {
-        let light = devices.light;
+        light = devices.light;
         $('#device-menu').append(menuItemElement('light', light.name, 'light', 'Light', light.macAdd));
     }
 }
@@ -44,7 +44,7 @@ function showModal(modalToShow, deviceName) {
                 <div class="field">
                     <label class="label">状態</label>
                     <div class="control">
-                        <button class="button is-success is-rounded is-medium" id="status-btn">オン</button>
+                        <button class="button is-success is-rounded is-medium" id="status-btn" onclick="setStatus('${modalToShow}')">オン</button>
                     </div>
                 </div>
                 <div class="field">

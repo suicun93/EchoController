@@ -1,4 +1,10 @@
 var devices = "";
+var devices = "";
+var ev = null;
+var battery = null;
+var solar = null;
+var light = null;
+
 getAvailableItem();
 if(isDisplay){
     setInterval("getAvailableItem()",5400);
