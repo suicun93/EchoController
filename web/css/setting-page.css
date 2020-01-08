@@ -42,15 +42,23 @@
       margin-top: 2vh; }
     .content .right-menu .right-menu-item .right-menu-item-input {
       margin: 1rem 0; }
+      .content .right-menu .right-menu-item .right-menu-item-input label {
+        font-size: 1.5rem; }
     .content .right-menu .right-menu-item input {
       width: 27vw; }
     .content .right-menu .right-menu-item .form_datetime {
       text-align: center; }
     .content .right-menu .right-menu-item label {
-      margin: 1rem 0;
-      font-size: 1.5rem; }
+      margin: 1rem 0; }
     .content .right-menu .right-menu-item > button {
       margin-bottom: 1.5rem; }
+    .content .right-menu .right-menu-item .menu-form {
+      text-align: left;
+      margin-bottom: 10px; }
+      .content .right-menu .right-menu-item .menu-form button {
+        width: 100%; }
+      .content .right-menu .right-menu-item .menu-form input {
+        width: 100%; }
 
 .datetimepicker {
   border: 1px solid gray;

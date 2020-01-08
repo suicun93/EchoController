@@ -55,6 +55,9 @@ $border-radius:5px;
             }
             .right-menu-item-input{
                 margin: 1rem 0;
+                label{
+                    font-size: 1.5rem;
+                }
             }
             input{
                 width: 27vw;
@@ -64,10 +67,20 @@ $border-radius:5px;
             }
             label{
                 margin: 1rem 0;
-                font-size:1.5rem;
             }
             > button{
                 margin-bottom: 1.5rem;
+            }
+            .menu-form{
+                text-align: left;
+                margin-bottom: 10px;
+                button{
+                    width: 100%;
+                }
+                input{
+                    width: 100%;
+                }
+                
             }
         }
     }
