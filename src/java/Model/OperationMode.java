@@ -22,16 +22,16 @@ public enum OperationMode {
     EffectiveCapacityRecalculationProcessing((byte) 0x49);
 
     // <editor-fold defaultstate="collapsed" desc="//Skip this">
-    public final byte value;
-
     public static OperationMode from(byte value) {
         for (OperationMode mode : values()) {
             if (mode.value == value) {
                 return mode;
             }
         }
-        return Other;
+        return null;
     }
+
+    public final byte value;
 
     OperationMode(byte operation) {
         this.value = operation;
