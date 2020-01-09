@@ -33,7 +33,7 @@ public class MyLightReceiver extends GeneralLighting.Receiver {
         synchronized (out) {
             boolean result = super.onSetProperty(eoj, tid, esv, property, success);
             if (success) {
-                out.print("Success");
+                out.print("success");
             } else {
                 out.print("{\n"
                         + "\"Failed\":\"" + "Wrong EPC,EDT" + "\"\n"
