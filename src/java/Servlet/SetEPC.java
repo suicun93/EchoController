@@ -8,8 +8,6 @@ package Servlet;
 import Common.Convert;
 import Main.EchoController;
 import static Servlet.Time.getParam;
-import com.sonycsl.echo.EchoProperty;
-import com.sonycsl.echo.eoj.EchoObject;
 import com.sonycsl.echo.eoj.device.DeviceObject;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -79,34 +77,15 @@ public class SetEPC extends HttpServlet {
             for (DeviceObject deviceObject : EchoController.listDevice()) {
                 if (deviceObject.getEchoClassCode() == receivedEOJ // Compare EOJ
                         && deviceObject.getNode().getAddressStr().equalsIgnoreCase(receivedAddress)) {  // Compare Address
-                    // Back up receiver.
-                    EchoObject.Receiver oldReceiver = deviceObject.getReceiver();
                     // Check success by new receiver
-                    deviceObject.setReceiver(new DeviceObject.Receiver() {
-                        @Override
-                        protected boolean onSetProperty(EchoObject eoj, short tid, byte esv, EchoProperty property, boolean success) {
-                            synchronized (out) {
-                                boolean result = super.onSetProperty(eoj, tid, esv, property, success);
-                                if (success) {
-                                    out.print("Success");
-                                } else {
-                                    out.print("{\n"
-                                            + "\"Failed\":\"" + "Wrong EPC,EDT" + "\"\n"
-                                            + "}");
-                                }
-                                out.notify();
-                                return result;
-                            }
-                        }
-                    });
+                    deviceObject.getReceiver().out = out;
+
                     // Set new EDT
                     deviceObject.set().reqSetProperty(EPC, EDT).send();
                     // Wait for response
                     synchronized (out) {
                         out.wait();
                     }
-                    // Restore old Receiver.
-                    deviceObject.setReceiver(oldReceiver);
                     return;
                 }
             }
