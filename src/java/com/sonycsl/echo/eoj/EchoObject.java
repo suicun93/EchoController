@@ -18,6 +18,7 @@ import com.sonycsl.echo.EchoUtils;
 import com.sonycsl.echo.eoj.profile.NodeProfile;
 import com.sonycsl.echo.exception.InvalidPropertyException;
 import com.sonycsl.echo.node.EchoNode;
+import java.io.PrintWriter;
 
 
 public abstract class EchoObject {
@@ -377,7 +378,8 @@ public abstract class EchoObject {
 	
 	
 	public static class Receiver {
-		
+		public PrintWriter out = null;
+
 		public void onReceive(EchoObject eoj, EchoFrame frame){
 			onReceiveFrame(eoj, frame);
 

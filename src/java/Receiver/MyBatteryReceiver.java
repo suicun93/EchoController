@@ -75,4 +75,19 @@ public class MyBatteryReceiver extends Battery.Receiver {
         }
     }
 
+    @Override
+    protected boolean onSetProperty(EchoObject eoj, short tid, byte esv, EchoProperty property, boolean success) {
+        synchronized (out) {
+            boolean result = super.onSetProperty(eoj, tid, esv, property, success);
+            if (success) {
+                out.print("Success");
+            } else {
+                out.print("{\n"
+                        + "\"Failed\":\"" + "Wrong EPC,EDT" + "\"\n"
+                        + "}");
+            }
+            out.notify();
+            return result;
+        }
+    }
 }
