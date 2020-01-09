@@ -107,7 +107,7 @@ function ajaxCall(eoj, macAdd, epc, edt){
     return new Promise(function (resolve, reject){
         $.ajax({
             type : 'POST',
-            url: "http://192.168.52.2:8080/Collector/SetEPC",
+            url: "SetEPC",
             data: eoj +"," + macAdd + "," + epc + "," + edt,
             dataType: 'text',
             success: function (response) {
