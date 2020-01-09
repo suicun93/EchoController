@@ -7,25 +7,30 @@ function deviceInit() {
     };
     if (devices.hasOwnProperty("ev")) {
         ev = devices.ev;
+        EV_CURRENT_STATUS = ev.status;
         $('#device-menu').append(menuItemElement('ev', ev.name, 'car', 'Electric Vehicle', ev.macAdd));
     }
     if (devices.hasOwnProperty("battery")) {
         battery = devices.battery;
+        BATT_CURRENT_STATUS = battery.status;
         $('#device-menu').append(menuItemElement('battery', battery.name, 'battery', 'Battery', battery.macAdd));
     }
     if (devices.hasOwnProperty("solar")) {
         solar = devices.solar;
+        SOLAR_CURRENT_STATUS = solar.status;
         $('#device-menu').append(menuItemElement('solar', solar.name, 'sun', 'Solar Energy', solar.macAdd));
     }
     if (devices.hasOwnProperty("light")) {
         light = devices.light;
+        LIGHT_CURRENT_STATUS = light.status;
         $('#device-menu').append(menuItemElement('light', light.name, 'light', 'Light', light.macAdd));
     }
 }
 
 function showModal(modalToShow, deviceName) {
+
     let modal = $('#modal');
-    let modeSelect = `<div class="field">
+    let modeSelectElement = `<div class="field">
                         <label class="label">モード</label>
                         <div class="select">
                             <select id="mode">
@@ -37,14 +42,16 @@ function showModal(modalToShow, deviceName) {
                             </select>
                         </div>
                     </div>`;
-    let setEPCForm = 
-    `<div class="columns">
+    function modalSetEPCForm(status) {
+        return `<div class="columns">
         <div class="main-menu column is-8 is-offset-2">
             <div class="menu-form column is-8 is-offset-2">
                 <div class="field">
                     <label class="label">状態</label>
                     <div class="control">
-                        <button class="button is-success is-rounded is-medium" id="status-btn" onclick="setStatus('${modalToShow}')">オン</button>
+                    ${status === ON_STATUS ? `<button class="button is-danger is-rounded is-medium" id="status-btn" onclick="setStatus('${modalToShow}', this)">オフ</button>`
+                                    : `<button class="button is-success is-rounded is-medium" id="status-btn" onclick="setStatus('${modalToShow}', this)">オン</button>`}
+                        <p class="help is-danger" id="change-status-failed" style='display: none'>Failed to change status!</p>
                     </div>
                 </div>
                 <div class="field">
@@ -63,7 +70,7 @@ function showModal(modalToShow, deviceName) {
                     <p class="help is-danger" id="end-time-invalid-mess" style="display: none">
                         This value is required!</p>
                 </div>
-                ${modalToShow !== 'solar' ? modeSelect : ''}
+                ${modalToShow !== 'solar' ? modeSelectElement : ''}
                 <div class="field">
                     <label class="label">瞬時値電力量</label>
                     <div class="control">
@@ -82,6 +89,8 @@ function showModal(modalToShow, deviceName) {
             </div>
         </div>
     </div>`;
+    }
+
     function modalElement(modalToShow, deviceName) {
         return "<h3 id='device-name'>" + deviceName + "設定</h3>" +
             "<div class='right-menu-item-input'>" +
@@ -103,18 +112,34 @@ function showModal(modalToShow, deviceName) {
             break;
         case "solar":
             modal.html(modalElement('solar', deviceName));
-            modal.append(setEPCForm);
+            modal.append(modalSetEPCForm(SOLAR_CURRENT_STATUS));
             break;
         case "ev":
             modal.html(modalElement('ev', deviceName));
-            modal.append(setEPCForm);
+            modal.append(modalSetEPCForm(EV_CURRENT_STATUS));
             break;
         case "battery":
             modal.html(modalElement('battery', deviceName));
-            modal.append(setEPCForm);
+            modal.append(modalSetEPCForm(BATT_CURRENT_STATUS));
             break;
         case "light":
             modal.html(modalElement('light', deviceName));
+            modal.append(
+                 `<div class="columns">
+                    <div class="main-menu column is-8 is-offset-2">
+                    <div class="menu-form column is-8 is-offset-2">
+                    <div class="field">
+                        <label class="label">状態</label>
+                        <div class="control">
+                        ${LIGHT_CURRENT_STATUS === ON_STATUS ? `<button class="button is-danger is-rounded is-medium" id="status-btn" onclick="setStatus('light', this)">オフ</button>`
+                                        : `<button class="button is-success is-rounded is-medium" id="status-btn" onclick="setStatus('light', this)">オン</button>`}
+                            <p class="help is-danger" id="change-status-failed" style='display: none'>Failed to change status!</p>
+                        </div>
+                    </div>
+                    </div>
+                    </div>
+                </div>`);
             break;
     }
 }
+

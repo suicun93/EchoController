@@ -1,9 +1,12 @@
 var devices = "";
-var devices = "";
 var ev = null;
+var EV_CURRENT_STATUS = "";
 var battery = null;
+var BATT_CURRENT_STATUS = "";
 var solar = null;
+var SOLAR_CURRENT_STATUS = "";
 var light = null;
+var LIGHT_CURRENT_STATUS = "";
 
 getAvailableItem();
 if(isDisplay){

@@ -12,6 +12,14 @@ function closeMsg() {
     $(".delete").click(cleanMsg);
 }
 
+function reverseStatus(status) {
+    if (status === ON_STATUS) {
+        return OFF_STATUS;
+    } else {
+        return ON_STATUS;
+    }
+}
+
 const INTERVAL_TIME = 15000;
 const TIME_OUT = 1000;
 const STATE_READY = 4;
