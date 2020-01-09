@@ -20,6 +20,7 @@ function reverseStatus(status) {
     }
 }
 
+//Constants
 const INTERVAL_TIME = 15000;
 const TIME_OUT = 1000;
 const STATE_READY = 4;
@@ -28,7 +29,7 @@ const SUCCESS_STATUS = "success";
 const FAIL_STATUS = "failed";
 const ON_STATUS = "ON";
 const OFF_STATUS = "OFF";
+const RAPID_CHARGE_MODE = "RapidCharging";
 const DISCHARGE_MODE = "Discharging";
 const CHARGE_MODE = "Charging";
-const RAPID_CHARGE_MODE = "RapidCharging";
 

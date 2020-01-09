@@ -34,9 +34,9 @@ function showModal(modalToShow, deviceName) {
                         <label class="label">モード</label>
                         <div class="select">
                             <select id="mode">
-                                <option value="0x42" selected="selected">充電</option>
-                                <option value="0x41">急速充電</option>
-                                <option value="0x43">放電</option>
+                                <option value="42" selected="selected">充電</option>
+                                <option value="41">急速充電</option>
+                                <option value="43">放電</option>
                                 <select>
                                 </select> <br><br>
                             </select>
@@ -44,8 +44,8 @@ function showModal(modalToShow, deviceName) {
                     </div>`;
     function modalSetEPCForm(status) {
         return `<div class="columns">
-        <div class="main-menu column is-8 is-offset-2">
-            <div class="menu-form column is-8 is-offset-2">
+        <div class="main-menu column is-8 is-offset-2" id="menu-form">
+            <div class="menu-form column is-8 is-offset-2"  >
                 <div class="field">
                     <label class="label">状態</label>
                     <div class="control">
@@ -83,7 +83,7 @@ function showModal(modalToShow, deviceName) {
                 </div>
                 <div class="field">
                     <div class="control">
-                        <button class="button is-primary is-outlined">設定</button>
+                        <button class="button is-primary is-outlined" id='submit-btn' onclick="setEpc('${modalToShow}')">設定</button>
                     </div>
                 </div>
             </div>
