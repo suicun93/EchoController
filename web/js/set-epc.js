@@ -116,6 +116,7 @@ function setEpc(device){
             break;
         case 'battery':
             eoj = '0x027d';
+            setSchedule(eoj, battery.macAdd);
             break;
         case 'light':
             eoj = '0x0290';
@@ -148,7 +149,12 @@ function setEpc(device){
             endTime = convertTimeToHex(endTime);
             $('#end-time-invalid-mess').attr('style', 'display:none');
         }
+        //set Mode, if undefine return null
         let mode = $('#mode').val();
+        if(eoj === '0x0279'){
+            mode = '';
+        }
+        //set instantaneous value
         let instValue = $('#instantaneous').val();
         if(instValue === ''){
             //display error message if null
@@ -157,12 +163,18 @@ function setEpc(device){
             return;
         }else{
             instValue = parseInt(instValue).toString(16);
-            do{
-                instValue = '0' + instValue;
-            }while(instValue.length < 8)
+            // if solar, only 2 bits of value
+            if(eoj !== '0x0279'){
+                do{
+                    instValue = '0' + instValue;
+                }while(instValue.length < 8)
+            }else{
+                do{
+                    instValue = '0' + instValue;
+                }while(instValue.length < 4)
+            }
             $('#instantaneous-value-mess').attr('style', 'display:none');
         }
-        //add zero into instValue to become 8 bytes
         let data = startTime + endTime + mode + instValue;
         console.log(data);
         ajaxCall(eoj, macAdd, '0xFF', data)
@@ -202,8 +214,8 @@ function ajaxCall(eoj, macAdd, edt, epc){
     return new Promise(function (resolve, reject){
         $.ajax({
             type : 'POST',
-            url: "SetEPC",
-            data: eoj +"," + macAdd + "," + epc + "," + edt,
+            url: "http://192.168.52.2:8080/Collector/SetEPC",
+            data: eoj +"," + macAdd + "," + edt + "," + epc,
             dataType: 'text',
             success: function (response) {
                 resolve(response) ;
