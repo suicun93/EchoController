@@ -77,12 +77,12 @@ public class SetEPC extends HttpServlet {
             for (DeviceObject deviceObject : EchoController.listDevice()) {
                 if (deviceObject.getEchoClassCode() == receivedEOJ // Compare EOJ
                         && deviceObject.getNode().getAddressStr().equalsIgnoreCase(receivedAddress)) {  // Compare Address
-                    // Check success by new receiver
+                    // 結果を受け取る準備ための関数です。
                     deviceObject.getReceiver().out = out;
 
-                    // Set new EDT
+                    // 新しいEPCを設定する
                     deviceObject.set().reqSetProperty(EPC, EDT).send();
-                    // Wait for response
+                    // 結果を受け取るを待ちる
                     synchronized (out) {
                         out.wait();
                     }
